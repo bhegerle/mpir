@@ -5,7 +5,6 @@
 /build.vc/output_params.bat
 /build.vc*/test-config.props
 
-
 #################
 ## Eclipse
 #################
@@ -402,7 +401,6 @@ mpir.h
 config.h
 config.m4
 *.log
-*.in
 *.trs
 config.status
 libtool
@@ -636,3 +634,9 @@ doc/mpir.info-2
 install-sh
 ltmain.sh
 missing
+
+#################
+## meson files
+#################
+
+builddir
