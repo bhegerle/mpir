@@ -35,19 +35,20 @@ if c.get_id() == 'msvc'
 endif
 
 conf_data.set10('WANT_ASSERT', get_option('enable-assert'))
-conf_data.set10('HAVE_ALLOCA_H', c.has_header('alloca.h'))
 
+conf_data.set10('HAVE_ALLOCA_H', c.has_header('alloca.h'))
 conf_data.set10('WANT_TMP_ALLOCA', alloca == 'alloca')
 conf_data.set10('WANT_TMP_REENTRANT', alloca == 'malloc-reentrant')
 conf_data.set10('WANT_TMP_NOTREENTRANT', alloca == 'malloc-notreentrant')
 conf_data.set10('WANT_TMP_DEBUG', alloca == 'debug')
 
 conf_data.set10('WANT_FFT', get_option('enable-fft'))
-conf_data.set10('WANT_FFT', get_option('enable-fft'))
+
 conf_data.set('GMP_NAIL_BITS', 0)
 
 configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
 configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
+
 
 # select sources
 mpir_src = []
@@ -65,8 +66,6 @@ endif
 
 # host src
 host_inc = include_directories('mpn/generic')
-
-c.sizeof('mp_limb_t', 
 
 if get_option('enable-fft')
     mpir_src += [
@@ -99,7 +98,7 @@ if get_option('enable-fft')
     ]
 endif
 
-library('mpir', mpir_src, 
+lib = library('mpir', mpir_src, 
     c_args : '-D__GMP_WITHIN_GMP=1', 
     include_directories : host_inc)
 
