@@ -1,20 +1,19 @@
 option('with-yasm', type : 'string', value : 'yasm', 
-       description : 'use a custom Yasm')
+    description : 'use a custom Yasm')
 
 option('enable-assert', type : 'boolean', value : false, 
-       description : 'enable ASSERT checking')
+    description : 'enable ASSERT checking')
 
 option('enable-alloca', type : 'combo', 
-       choices : ['yes', 'no', 'reentrant', 'notreentrant', 'alloca', 'malloc-reentrant', 'malloc-notreentrant', 'debug'], 
-       value : 'reentrant')
+    choices : ['yes', 'no', 'reentrant', 'notreentrant', 'alloca', 'malloc-reentrant', 'malloc-notreentrant', 'debug'], 
+    value : 'reentrant')
 
 option('enable-fft', type : 'boolean', value : true, 
-       description : 'enable FFTs for multiplication')
+    description : 'enable FFTs for multiplication')
 
 option('host-arch', type : 'combo', 
-       choices : [
-              'generic',
-              'atom', 'bobcat', 'bulldozer', 'core2', 'k8', 'nehalem', 'netburst', 'sandybridge', 'skylake'
-       ], 
-       value : 'generic')
-       
+    choices : [
+        'auto', 'generic',
+        'atom', 'bobcat', 'bulldozer', 'core2', 'k8', 'nehalem', 'netburst', 'sandybridge', 'skylake'
+    ], 
+    value : 'auto')
