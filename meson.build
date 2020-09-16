@@ -27,15 +27,25 @@ elif alloca == 'notreentrant'
     alloca = gmp_cv_func_alloca ? 'alloca' : 'malloc-notreentrant'
 endif
 
-# load configuration data
-conf_data = configuration_data()
-
+# get host / cpu / arch
 host = host_machine.system()
 cpu = host_machine.cpu_family()
+arch = get_option('arch')
 
-if host == 'windows'
-    conf_data.set10('LIBGMP_DLL', get_option('default_library') != 'static')
-endif
+nix = (
+    host == 'darwin' or 
+    host == 'linux' or 
+    host.endswith('bsd') or 
+    host == 'gnu' or
+    host == 'sunos'
+)
+
+windows = host == 'windows'
+
+# configure
+conf_data = configuration_data()
+
+conf_data.set10('LIBGMP_DLL', windows and get_option('default_library') != 'static')
 
 conf_data.set10('WANT_ASSERT', get_option('enable-assert'))
 
@@ -55,8 +65,17 @@ conf_data.set('GMP_NAIL_BITS', 0)
 configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
 configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
 
+# subdirs
+subdir('mpn')
+
 # select sources
-mpir_src = []
+mpir_src = [
+    'assert.c', 'compat.c', 'cpuid.c', 'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c',
+    'mp_dv_tab.c', 'mp_get_fns.c', 'mp_minv_tab.c', 'mp_set_fns.c', 'nextprime.c', 'primesieve.c', 'randbui.c', 'randclr.c',
+    'randdef.c', 'randiset.c', 'randlc2s.c', 'randlc2x.c', 'randmt.c', 'randmts.c', 'randmui.c', 'rands.c', 'randsd.c',
+    'randsdui.c', 'version.c'
+] + mpn_src
+mpir_inc = []
 
 # alloc src
 if alloca == 'alloca'
@@ -67,26 +86,6 @@ elif alloca == 'malloc-notreentrant'
     mpir_src += ['tal-notreent.c'] 
 elif alloca == 'debug'
     mpir_src += ['tal-debug.c']
-endif
-
-# host src
-nix = (
-    host == 'darwin' or 
-    host == 'linux' or 
-    host.endswith('bsd') or 
-    host == 'gnu' or
-    host == 'sunos'
-)
-
-windows = host == 'windows'
-
-if cpu == 'x86_64'
-    if nix
-
-    elif windows
-    else
-        warning('no build configuration ')
-    endif
 endif
 
 if get_option('enable-fft')
@@ -121,7 +120,6 @@ if get_option('enable-fft')
 endif
 
 lib = library('mpir', mpir_src, 
-    c_args : '-D__GMP_WITHIN_GMP=1', 
-    include_directories : host_inc)
+    c_args : '-D__GMP_WITHIN_GMP=1')
 
 library('mpirxx')
