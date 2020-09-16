@@ -1,0 +1,22 @@
+fft_test_src = [
+    'fft/t-adjust.c',
+    'fft/t-adjust_sqrt2.c',
+    'fft/t-butterfly.c',
+    'fft/t-butterfly_lshB.c',
+    'fft/t-butterfly_rshB.c',
+    'fft/t-butterfly_sqrt2.c',
+    'fft/t-butterfly_twiddle.c',
+    'fft/t-div_2expmod_2expp1.c',
+    'fft/t-fft_ifft_mfa_trunc_sqrt2.c',
+    'fft/t-fft_ifft_negacyclic.c',
+    'fft/t-fft_ifft_radix2.c',
+    'fft/t-fft_ifft_trunc.c',
+    'fft/t-fft_ifft_trunc_sqrt2.c',
+    'fft/t-mul_2expmod_2expp1.c',
+    'fft/t-mul_fft_main.c',
+    'fft/t-mul_mfa_trunc_sqrt2.c',
+    'fft/t-mul_trunc_sqrt2.c',
+    'fft/t-mulmod_2expp1.c',
+    'fft/t-normmod_2expp1.c',
+    'fft/t-split_combine_bits.c'
+]

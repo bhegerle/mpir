@@ -1,0 +1,23 @@
+printf_src = [
+    'printf/asprintf.c',
+    'printf/asprntffuns.c',
+    'printf/doprnt.c',
+    'printf/doprntf.c',
+    'printf/doprnti.c',
+    'printf/fprintf.c',
+    'printf/obprintf.c',
+    'printf/obprntffuns.c',
+    'printf/obvprintf.c',
+    'printf/printf.c',
+    'printf/printffuns.c',
+    'printf/repl-vsnprintf.c',
+    'printf/snprintf.c',
+    'printf/snprntffuns.c',
+    'printf/sprintf.c',
+    'printf/sprintffuns.c',
+    'printf/vasprintf.c',
+    'printf/vfprintf.c',
+    'printf/vprintf.c',
+    'printf/vsnprintf.c',
+    'printf/vsprintf.c'
+]

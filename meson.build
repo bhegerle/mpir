@@ -8,10 +8,12 @@ cpp = meson.get_compiler('cpp')
 windows = host_machine.system() == 'windows'
 
 subdir('mpn')
+subdir('fft')
 subdir('mpz')
 subdir('mpq')
 subdir('mpf')
-subdir('fft')
+subdir('printf')
+subdir('scanf')
 
 # select allocator
 have_alloca = (
@@ -190,7 +192,7 @@ foreach out_hdr, in_hdr : mpn_hdr_map
     configure_file(input : in_hdr, output : out_hdr, copy : true)
 endforeach
 
-mpir_src = mpn_src + mpz_src + fft_src + mpq_src + mpf_src + [
+mpir_src = mpn_src + mpz_src + fft_src + mpq_src + mpf_src + printf_src + scanf_src + [
     'assert.c', 'compat.c', 
     # 'cpuid.c', 
     'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c',
@@ -215,11 +217,10 @@ endif
 if get_option('enable-fft')
 endif
 
-test_inc = include_directories('.', 'tests')
-
 mpir_lib = library('mpir', mpir_src, 
     c_args : '-D__GMP_WITHIN_GMP=1')
 
 library('mpirxx')
 
+test_inc = include_directories('.', 'tests')
 subdir('tests')
