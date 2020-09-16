@@ -421,7 +421,6 @@ yasm/po/POTFILES
 yasm/stamp-h1
 yasm_mac.inc
 gmp.h
-longlong.h
 gmp-mparam.h
 tune/sqr_basecase.c
 autoscript
