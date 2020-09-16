@@ -1,13 +1,17 @@
 project('mpir', ['c', 'cpp'], version : '1.11')
 
+fs = import('fs')
+
 yasm = find_program(get_option('with-yasm'))
 c = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
-
-# get os / cpu / arch
 windows = host_machine.system() == 'windows'
 
 subdir('mpn')
+subdir('mpz')
+subdir('mpq')
+subdir('mpf')
+subdir('fft')
 
 # select allocator
 have_alloca = (
@@ -63,7 +67,7 @@ header_conf_map = {
     'HAVE_SYS_TIME_H': c.has_header('sys/time.h'),
     'HAVE_SYS_TYPES_H': c.has_header('sys/types.h'),
     'HAVE_UNISTD_H': c.has_header('unistd.h'),
-    'TIME_WITH_SYS_TIME': c.has_header('time.h'),
+    # 'TIME_WITH_SYS_TIME': c.has_header('time.h'),
     'HAVE_ALLOCA_H': c.has_header('alloca.h')
 }
 
@@ -164,67 +168,58 @@ foreach symbol, flag : config_map
     conf_data.set10(symbol, flag)
 endforeach
 
+conf_data.set('BITS_PER_MP_LIMB', '(8 * SIZEOF_MP_LIMB_T)')
 conf_data.set('GMP_NAIL_BITS', 0)
 conf_data.set('SIZEOF_UINTMAX_T', c.sizeof('uintmax_t', prefix : '#include <stdint.h>'))
 conf_data.set('SIZEOF_UNSIGNED', c.sizeof('unsigned'))
 conf_data.set('SIZEOF_UNSIGNED_LONG', c.sizeof('unsigned long'))
+conf_data.set('SIZEOF_UNSIGNED_LONG_LONG', c.sizeof('unsigned long long'))
 conf_data.set('SIZEOF_UNSIGNED_SHORT', c.sizeof('unsigned short'))
 
 configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
 configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
 
 # select sources
-mpir_src = mpn_src + [
-    'assert.c', 'compat.c', 'cpuid.c', 'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c',
+mpn_src = []
+foreach _, src : mpn_src_map
+    mpn_src += src
+endforeach
+
+foreach out_hdr, in_hdr : mpn_hdr_map
+    message(in_hdr + ' -> ' + out_hdr)
+    configure_file(input : in_hdr, output : out_hdr, copy : true)
+endforeach
+
+mpir_src = mpn_src + mpz_src + fft_src + mpq_src + mpf_src + [
+    'assert.c', 'compat.c', 
+    # 'cpuid.c', 
+    'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c',
     'mp_dv_tab.c', 'mp_get_fns.c', 'mp_minv_tab.c', 'mp_set_fns.c', 'nextprime.c', 'primesieve.c', 'randbui.c', 'randclr.c',
     'randdef.c', 'randiset.c', 'randlc2s.c', 'randlc2x.c', 'randmt.c', 'randmts.c', 'randmui.c', 'rands.c', 'randsd.c',
     'randsdui.c', 'version.c'
-] 
+]
 mpir_inc = []
 
 # alloc src
 if alloca == 'alloca'
     assert(have_alloca, 'alloca specified, but alloca not available')
+    mpir_src += 'tal-reent.c'
 elif alloca == 'malloc-reentrant'
-    mpir_src += ['tal-reent.c']
+    mpir_src += 'tal-reent.c'
 elif alloca == 'malloc-notreentrant'
-    mpir_src += ['tal-notreent.c'] 
+    mpir_src += 'tal-notreent.c'
 elif alloca == 'debug'
-    mpir_src += ['tal-debug.c']
+    mpir_src += 'tal-debug.c'
 endif
 
 if get_option('enable-fft')
-    mpir_src += [
-        'fft/adjust_sqrt2.c',
-        'fft/butterfly_lshB.c',
-        'fft/butterfly_rshB.c',
-        'fft/combine_bits.c',
-        'fft/div_2expmod_2expp1.c',
-        'fft/fermat_to_mpz.c',
-        'fft/fft_mfa_trunc_sqrt2.c',
-        'fft/fft_mfa_trunc_sqrt2_inner.c',
-        'fft/fft_negacyclic.c',
-        'fft/fft_radix2.c',
-        'fft/fft_trunc.c',
-        'fft/fft_trunc_sqrt2.c',
-        'fft/ifft_mfa_trunc_sqrt2.c',
-        'fft/ifft_negacyclic.c',
-        'fft/ifft_radix2.c',
-        'fft/ifft_trunc.c',
-        'fft/ifft_trunc_sqrt2.c',
-        'fft/mul_2expmod_2expp1.c',
-        'fft/mul_fft_main.c',
-        'fft/mul_mfa_trunc_sqrt2.c',
-        'fft/mul_trunc_sqrt2.c',
-        'fft/mulmod_2expp1.c',
-        'fft/normmod_2expp1.c',
-        'fft/revbin.c',
-        'fft/split_bits.c',
-        'fft/adjust.c'
-    ]
 endif
 
-lib = library('mpir', mpir_src, 
+test_inc = include_directories('.', 'tests')
+
+mpir_lib = library('mpir', mpir_src, 
     c_args : '-D__GMP_WITHIN_GMP=1')
 
 library('mpirxx')
+
+subdir('tests')

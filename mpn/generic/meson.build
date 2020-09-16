@@ -1,10 +1,10 @@
 have_calling_conventions = false
-double_ieee_endianness = 'unknown'
-limb_endianness = 'unknown'
+double_ieee_endianness = host_machine.endian()
+limb_endianness = host_machine.endian()
 
 mpn_hdr_map = {
-    'gmp-mparam': 'mpn/generic/gmp-mparam.h',
-    'longlong_inc': 'mpn/generic/longlong_inc.h'
+    'gmp-mparam.h': 'mpn/generic/gmp-mparam.h.in',
+    'longlong_inc.h': 'mpn/generic/longlong_inc.h.in'
 }
 
 mpn_src_map = {
@@ -61,7 +61,6 @@ mpn_src_map = {
     'gcdext_lehmer': 'mpn/generic/gcdext_lehmer.c',
     'get_d': 'mpn/generic/get_d.c',
     'get_str': 'mpn/generic/get_str.c',
-    'gmp-mparam': 'mpn/generic/gmp-mparam.h',
     'hamdist': 'mpn/generic/hamdist.c',
     'hgcd': 'mpn/generic/hgcd.c',
     'hgcd2': 'mpn/generic/hgcd2.c',
@@ -175,3 +174,4 @@ mpn_src_map = {
     'zero': 'mpn/generic/zero.c',
     'zero_p': 'mpn/generic/zero_p.c'
 }
+

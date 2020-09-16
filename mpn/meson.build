@@ -7,8 +7,3 @@ if arch == 'auto'
 endif
 
 subdir('generic')
-
-mpn_src = []
-foreach _, src : mpn_src_map
-    mpn_src += src
-endforeach

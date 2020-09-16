@@ -353,6 +353,12 @@ typedef unsigned long       gmp_uint_least32_t;
 #endif
 #endif
 
+#if defined(BITS_PER_MP_LIMB) && defined(SIZEOF_MP_LIMB_T)
+#  if BITS_PER_MP_LIMB != GMP_LIMB_BITS
+#    error inconsistent bit size
+#  endif
+#endif
+
 /* pre-inverse types for truncating division and modulo */
 typedef struct {mp_limb_t inv32;} gmp_pi1_t;
 typedef struct {mp_limb_t inv21, inv32, inv53;} gmp_pi2_t;

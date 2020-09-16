@@ -430,6 +430,9 @@ MA 02110-1301, USA.
 /* The size of `unsigned long', as computed by sizeof. */
 #mesondefine SIZEOF_UNSIGNED_LONG
 
+/* The size of `unsigned long long', as computed by sizeof. */
+#mesondefine SIZEOF_UNSIGNED_LONG_LONG
+
 /* The size of `unsigned short', as computed by sizeof. */
 #mesondefine SIZEOF_UNSIGNED_SHORT
 
