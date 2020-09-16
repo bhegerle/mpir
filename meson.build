@@ -30,7 +30,10 @@ endif
 # load configuration data
 conf_data = configuration_data()
 
-if c.get_id() == 'msvc'
+host = host_machine.system()
+cpu = host_machine.cpu_family()
+
+if host == 'windows'
     conf_data.set10('LIBGMP_DLL', get_option('default_library') != 'static')
 endif
 
@@ -44,11 +47,13 @@ conf_data.set10('WANT_TMP_DEBUG', alloca == 'debug')
 
 conf_data.set10('WANT_FFT', get_option('enable-fft'))
 
+# profiling
+# fat binary
+
 conf_data.set('GMP_NAIL_BITS', 0)
 
 configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
 configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
-
 
 # select sources
 mpir_src = []
@@ -59,13 +64,30 @@ if alloca == 'alloca'
 elif alloca == 'malloc-reentrant'
     mpir_src += ['tal-reent.c']
 elif alloca == 'malloc-notreentrant'
-    mpir_src += ['tal-notreent.c']
+    mpir_src += ['tal-notreent.c'] 
 elif alloca == 'debug'
     mpir_src += ['tal-debug.c']
 endif
 
 # host src
-host_inc = include_directories('mpn/generic')
+nix = (
+    host == 'darwin' or 
+    host == 'linux' or 
+    host.endswith('bsd') or 
+    host == 'gnu' or
+    host == 'sunos'
+)
+
+windows = host == 'windows'
+
+if cpu == 'x86_64'
+    if nix
+
+    elif windows
+    else
+        warning('no build configuration ')
+    endif
+endif
 
 if get_option('enable-fft')
     mpir_src += [
