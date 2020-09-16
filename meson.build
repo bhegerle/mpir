@@ -1,4 +1,5 @@
 project('mpir', ['c', 'cpp'], version : '1.11')
+version = '1.11'
 
 fs = import('fs')
 
@@ -170,6 +171,7 @@ foreach symbol, flag : config_map
     conf_data.set10(symbol, flag)
 endforeach
 
+conf_data.set_quoted('VERSION', version)
 conf_data.set('BITS_PER_MP_LIMB', '(8 * SIZEOF_MP_LIMB_T)')
 conf_data.set('GMP_NAIL_BITS', 0)
 conf_data.set('SIZEOF_UINTMAX_T', c.sizeof('uintmax_t', prefix : '#include <stdint.h>'))
@@ -220,7 +222,7 @@ endif
 mpir_lib = library('mpir', mpir_src, 
     c_args : '-D__GMP_WITHIN_GMP=1')
 
-library('mpirxx')
+# library('mpirxx')
 
 test_inc = include_directories('.', 'tests')
 subdir('tests')
