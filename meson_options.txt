@@ -13,8 +13,7 @@ option('enable-fft', type : 'boolean', value : true,
 
 option('host-arch', type : 'combo', 
        choices : [
-              'generic', 
-              # x86_64
+              'generic',
               'atom', 'bobcat', 'bulldozer', 'core2', 'k8', 'nehalem', 'netburst', 'sandybridge', 'skylake'
        ], 
        value : 'generic')

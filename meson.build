@@ -27,20 +27,20 @@ elif alloca == 'notreentrant'
     alloca = gmp_cv_func_alloca ? 'alloca' : 'malloc-notreentrant'
 endif
 
-# get host / cpu / arch
-host = host_machine.system()
+# get os / cpu / arch
+os = host_machine.system()
 cpu = host_machine.cpu_family()
-arch = get_option('arch')
+arch = get_option('host-arch')
 
 nix = (
-    host == 'darwin' or 
-    host == 'linux' or 
-    host.endswith('bsd') or 
-    host == 'gnu' or
-    host == 'sunos'
+    os == 'darwin' or 
+    os == 'linux' or 
+    os.endswith('bsd') or 
+    os == 'gnu' or
+    os == 'sunos'
 )
 
-windows = host == 'windows'
+windows =  os == 'windows'
 
 # configure
 conf_data = configuration_data()
@@ -69,12 +69,12 @@ configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data
 subdir('mpn')
 
 # select sources
-mpir_src = [
+mpir_src = mpn_src + [
     'assert.c', 'compat.c', 'cpuid.c', 'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c',
     'mp_dv_tab.c', 'mp_get_fns.c', 'mp_minv_tab.c', 'mp_set_fns.c', 'nextprime.c', 'primesieve.c', 'randbui.c', 'randclr.c',
     'randdef.c', 'randiset.c', 'randlc2s.c', 'randlc2x.c', 'randmt.c', 'randmts.c', 'randmui.c', 'rands.c', 'randsd.c',
     'randsdui.c', 'version.c'
-] + mpn_src
+] 
 mpir_inc = []
 
 # alloc src
