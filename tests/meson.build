@@ -42,7 +42,7 @@ foreach src : test_src
         include_directories : test_inc,
         link_with : [mpir_lib, test_lib])
         
-    test(name, exe, suite : suite)
+    test(name, exe, suite : suite, timeout : 60)
 endforeach
 
 
