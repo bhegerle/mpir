@@ -3,10 +3,13 @@ version = '1.11'
 
 fs = import('fs')
 
-yasm = find_program(get_option('with-yasm'))
 c = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 windows = host_machine.system() == 'windows'
+
+if windows 
+    yasm = find_program(get_option('with-yasm'))
+endif
 
 subdir('mpn')
 subdir('fft')
@@ -15,6 +18,7 @@ subdir('mpq')
 subdir('mpf')
 subdir('printf')
 subdir('scanf')
+subdir('cxx')
 
 # select allocator
 have_alloca = (
@@ -51,7 +55,7 @@ header_conf_map = {
     'HAVE_LANGINFO_H': c.has_header('langinfo.h'),
     'HAVE_LOCALE_H': c.has_header('locale.h'),
     'HAVE_MEMORY_H': c.has_header('memory.h'),
-    'HAVE_SSTREAM': c.has_header('sstream'),
+    'HAVE_SSTREAM': cpp.has_header('sstream'),
     'HAVE_STDARG': c.has_header('stdarg.h'),
     'HAVE_STDINT_H': c.has_header('stdint.h'),
     'HAVE_STDLIB_H': c.has_header('stdlib.h'),
@@ -222,7 +226,8 @@ endif
 mpir_lib = library('mpir', mpir_src, 
     c_args : '-D__GMP_WITHIN_GMP=1')
 
-# library('mpirxx')
+mpirxx_lib = library('mpirxx', mpirxx_src, 
+    cpp_args : '-D__GMP_WITHIN_GMP=1')
 
 test_inc = include_directories('.', 'tests')
 subdir('tests')

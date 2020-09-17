@@ -203,6 +203,17 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.  */
 #define __GMP_DECLSPEC
 #endif
 
+#ifndef SIZEOF_UNSIGNED
+#define SIZEOF_UNSIGNED @SIZEOF_UNSIGNED@
+#endif
+
+#ifndef SIZEOF_UNSIGNED_LONG_LONG
+#define SIZEOF_UNSIGNED_LONG_LONG @SIZEOF_UNSIGNED_LONG_LONG@
+#endif
+
+#ifndef SIZEOF_UNSIGNED_LONG
+#define SIZEOF_UNSIGNED_LONG @SIZEOF_UNSIGNED_LONG@
+#endif
 
 #ifdef __GMP_SHORT_LIMB
 #define SIZEOF_MP_LIMB_T    SIZEOF_UNSIGNED

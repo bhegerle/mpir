@@ -20,6 +20,7 @@ subdir('mpq')
 subdir('mpf')
 subdir('rand')
 subdir('misc')
+subdir('cxx')
 
 test_src = mpn_test_src + fft_test_src + mpz_test_src + mpq_test_src + mpf_test_src + rand_test_src + misc_test_src + [ 
     't-bswap.c',
@@ -40,9 +41,9 @@ foreach src : test_src
     
     exe = executable(exe_name, src, 
         include_directories : test_inc,
-        link_with : [mpir_lib, test_lib])
+        link_with : [mpir_lib, mpirxx_lib, test_lib])
         
-    test(name, exe, suite : suite, timeout : 60)
+    test(name, exe, suite : suite, timeout : 90)
 endforeach
 
 
