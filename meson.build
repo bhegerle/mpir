@@ -194,13 +194,14 @@ mpn_src = []
 yasm_src = []
 foreach f, src : mpn_src_map
     if src.endswith('.asm')
-        message(f)
         conf_data.set10('HAVE_NATIVE_mpn_' + f, true)
         yasm_src += src
-    elif src.endswith('.as')
-        conf_data.set10('HAVE_NATIVE_' + f, true)
-        message('need to assemble ' + src)
-    else
+    # elif src.endswith('.as')
+    #     conf_data.set10('HAVE_NATIVE_mpn_' + f, true)
+    #     message('need to assemble ' + src)
+    elif src.endswith('.dummy')
+        conf_data.set10('HAVE_NATIVE_mpn_' + f, true)
+    elif src.endswith('.c')
         mpn_src += src
     endif
 endforeach

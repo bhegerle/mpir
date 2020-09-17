@@ -22,7 +22,9 @@ if 'x86_64' in arch_set
         'sub_err1_n': 'mpn/x86_64w/sub_err1_n.asm',
         'sub_err2_n': 'mpn/x86_64w/sub_err2_n.asm',
         'udiv_qrnnd': 'mpn/x86_64w/udiv_qrnnd.asm',
-        'umul_ppmm': 'mpn/x86_64w/umul_ppmm.asm'
+        'umul_ppmm': 'mpn/x86_64w/umul_ppmm.asm',
+
+        'preinv_divrem_1': '.dummy'
     }
     
     subdir('netburst')
