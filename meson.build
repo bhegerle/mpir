@@ -1,5 +1,5 @@
 project('mpir', ['c', 'cpp'], version : '1.11')
-version = '1.11'
+
 
 fs = import('fs')
 
@@ -7,8 +7,14 @@ c = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 windows = host_machine.system() == 'windows'
 
-if windows 
+if get_option('with-yasm') != ''
     yasm = find_program(get_option('with-yasm'))
+else
+    if windows 
+        yasm = find_program('vsyasm.exe', dirs : ['C:\\Program Files\\yasm\\'])
+    else
+        yasm = find_program('yasm')
+    endif
 endif
 
 subdir('mpn')
@@ -175,7 +181,7 @@ foreach symbol, flag : config_map
     conf_data.set10(symbol, flag)
 endforeach
 
-conf_data.set_quoted('VERSION', version)
+conf_data.set_quoted('VERSION', meson.project_version())
 conf_data.set('BITS_PER_MP_LIMB', '(8 * SIZEOF_MP_LIMB_T)')
 conf_data.set('GMP_NAIL_BITS', 0)
 conf_data.set('SIZEOF_UINTMAX_T', c.sizeof('uintmax_t', prefix : '#include <stdint.h>'))
