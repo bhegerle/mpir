@@ -1,6 +1,5 @@
 project('mpir', ['c', 'cpp'], version : '1.11')
 
-
 fs = import('fs')
 
 c = meson.get_compiler('c')
@@ -190,14 +189,24 @@ conf_data.set('SIZEOF_UNSIGNED_LONG', c.sizeof('unsigned long'))
 conf_data.set('SIZEOF_UNSIGNED_LONG_LONG', c.sizeof('unsigned long long'))
 conf_data.set('SIZEOF_UNSIGNED_SHORT', c.sizeof('unsigned short'))
 
-configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
-configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
-
 # select sources
 mpn_src = []
-foreach _, src : mpn_src_map
-    mpn_src += src
+yasm_src = []
+foreach f, src : mpn_src_map
+    if src.endswith('.asm')
+        message(f)
+        conf_data.set10('HAVE_NATIVE_mpn_' + f, true)
+        yasm_src += src
+    elif src.endswith('.as')
+        conf_data.set10('HAVE_NATIVE_' + f, true)
+        message('need to assemble ' + src)
+    else
+        mpn_src += src
+    endif
 endforeach
+
+configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
+configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
 
 foreach out_hdr, in_hdr : mpn_hdr_map
     message(in_hdr + ' -> ' + out_hdr)
@@ -229,7 +238,12 @@ endif
 if get_option('enable-fft')
 endif
 
-mpir_lib = library('mpir', mpir_src, 
+# assemble sources
+
+yasm_obj = yasm_gen.process(yasm_src)
+
+mpir_lib = library('mpir', 
+    mpir_src + [yasm_obj], 
     c_args : '-D__GMP_WITHIN_GMP=1')
 
 mpirxx_lib = library('mpirxx', mpirxx_src, 

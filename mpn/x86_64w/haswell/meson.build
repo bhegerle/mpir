@@ -1,0 +1,52 @@
+if 'haswell' in arch_set
+    mpn_hdr_map += {
+        'gmp-mparam.h': 'mpn/x86_64w/haswell/gmp-mparam.h.in'
+    }
+    
+    mpn_src_map += {
+        'addlsh1_n': 'mpn/x86_64w/haswell/addlsh1_n.asm',
+        'addmul_1': 'mpn/x86_64w/haswell/addmul_1.asm',
+        'addmul_2': 'mpn/x86_64w/haswell/addmul_2.asm',
+        'and_n': 'mpn/x86_64w/haswell/and_n.asm',
+        'andn_n': 'mpn/x86_64w/haswell/andn_n.asm',
+        'com_n': 'mpn/x86_64w/haswell/com_n.asm',
+        'copyd': 'mpn/x86_64w/haswell/copyd.asm',
+        'copyi': 'mpn/x86_64w/haswell/copyi.asm',
+        'divexact_byff': 'mpn/x86_64w/haswell/divexact_byff.asm',
+        'divrem_hensel_qr_1_1': 'mpn/x86_64w/haswell/divrem_hensel_qr_1_1.asm',
+        'hamdist': 'mpn/x86_64w/haswell/hamdist.asm',
+        'ior_n': 'mpn/x86_64w/haswell/ior_n.asm',
+        'iorn_n': 'mpn/x86_64w/haswell/iorn_n.asm',
+        'karaadd': 'mpn/x86_64w/haswell/karaadd.asm',
+        'karasub': 'mpn/x86_64w/haswell/karasub.asm',
+        'lshift': 'mpn/x86_64w/haswell/lshift.asm',
+        'lshift1': 'mpn/x86_64w/haswell/lshift1.asm',
+        'lshiftc': 'mpn/x86_64w/haswell/lshiftc.asm',
+        'mod_1_1': 'mpn/x86_64w/haswell/mod_1_1.asm',
+        'mod_1_2': 'mpn/x86_64w/haswell/mod_1_2.asm',
+        'mod_1_3': 'mpn/x86_64w/haswell/mod_1_3.asm',
+        'mul_1': 'mpn/x86_64w/haswell/mul_1.asm',
+        'mul_2': 'mpn/x86_64w/haswell/mul_2.asm',
+        'mul_basecase': 'mpn/x86_64w/haswell/mul_basecase.asm',
+        'nand_n': 'mpn/x86_64w/haswell/nand_n.asm',
+        'nior_n': 'mpn/x86_64w/haswell/nior_n.asm',
+        'nsumdiff_n': 'mpn/x86_64w/haswell/nsumdiff_n.asm',
+        'popcount': 'mpn/x86_64w/haswell/popcount.asm',
+        'redc_1': 'mpn/x86_64w/haswell/redc_1.asm',
+        'rsh_divrem_hensel_qr_1_1': 'mpn/x86_64w/haswell/rsh_divrem_hensel_qr_1_1.asm',
+        'rsh_divrem_hensel_qr_1_2': 'mpn/x86_64w/haswell/rsh_divrem_hensel_qr_1_2.asm',
+        'rshift': 'mpn/x86_64w/haswell/rshift.asm',
+        'rshift1': 'mpn/x86_64w/haswell/rshift1.asm',
+        'sqr_basecase': 'mpn/x86_64w/haswell/sqr_basecase.asm',
+        'store': 'mpn/x86_64w/haswell/store.asm',
+        'sub_n': 'mpn/x86_64w/haswell/sub_n.asm',
+        'sublsh1_n': 'mpn/x86_64w/haswell/sublsh1_n.asm',
+        'submul_1': 'mpn/x86_64w/haswell/submul_1.asm',
+        'sumdiff_n': 'mpn/x86_64w/haswell/sumdiff_n.asm',
+        'xnor_n': 'mpn/x86_64w/haswell/xnor_n.asm',
+        'xor_n': 'mpn/x86_64w/haswell/xor_n.asm',
+        'add_n': 'mpn/x86_64w/haswell/add_n.asm'
+    }
+
+    subdir('avx')
+endif

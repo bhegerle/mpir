@@ -1,0 +1,47 @@
+if 'sandybridge' in arch_set
+    mpn_hdr_map += {
+        'gmp-mparam.h': 'mpn/x86_64w/sandybridge/gmp-mparam.h.in'
+    }
+
+    mpn_src_map += {
+        'addmul_1': 'mpn/x86_64w/sandybridge/addmul_1.asm',
+        'addmul_2': 'mpn/x86_64w/sandybridge/addmul_2.asm',
+        'and_n': 'mpn/x86_64w/sandybridge/and_n.asm',
+        'andn_n': 'mpn/x86_64w/sandybridge/andn_n.asm',
+        'com_n': 'mpn/x86_64w/sandybridge/com_n.asm',
+        'copyd': 'mpn/x86_64w/sandybridge/copyd.asm',
+        'copyi': 'mpn/x86_64w/sandybridge/copyi.asm',
+        'divexact_byff': 'mpn/x86_64w/sandybridge/divexact_byff.asm',
+        'divrem_hensel_qr_1_1': 'mpn/x86_64w/sandybridge/divrem_hensel_qr_1_1.asm',
+        'hamdist': 'mpn/x86_64w/sandybridge/hamdist.asm',
+        'ior_n': 'mpn/x86_64w/sandybridge/ior_n.asm',
+        'iorn_n': 'mpn/x86_64w/sandybridge/iorn_n.asm',
+        'karaadd': 'mpn/x86_64w/sandybridge/karaadd.asm',
+        'karasub': 'mpn/x86_64w/sandybridge/karasub.asm',
+        'lshift': 'mpn/x86_64w/sandybridge/lshift.asm',
+        'lshift1': 'mpn/x86_64w/sandybridge/lshift1.asm',
+        'lshiftc': 'mpn/x86_64w/sandybridge/lshiftc.asm',
+        'mod_1_1': 'mpn/x86_64w/sandybridge/mod_1_1.asm',
+        'mod_1_2': 'mpn/x86_64w/sandybridge/mod_1_2.asm',
+        'mod_1_3': 'mpn/x86_64w/sandybridge/mod_1_3.asm',
+        'mul_1': 'mpn/x86_64w/sandybridge/mul_1.asm',
+        'mul_2': 'mpn/x86_64w/sandybridge/mul_2.asm',
+        'mul_basecase': 'mpn/x86_64w/sandybridge/mul_basecase.asm',
+        'mullow_n_basecase': 'mpn/x86_64w/sandybridge/mullow_n_basecase.asm',
+        'nand_n': 'mpn/x86_64w/sandybridge/nand_n.asm',
+        'nior_n': 'mpn/x86_64w/sandybridge/nior_n.asm',
+        'popcount': 'mpn/x86_64w/sandybridge/popcount.asm',
+        'redc_1': 'mpn/x86_64w/sandybridge/redc_1.asm',
+        'rsh_divrem_hensel_qr_1_1': 'mpn/x86_64w/sandybridge/rsh_divrem_hensel_qr_1_1.asm',
+        'rsh_divrem_hensel_qr_1_2': 'mpn/x86_64w/sandybridge/rsh_divrem_hensel_qr_1_2.asm',
+        'rshift': 'mpn/x86_64w/sandybridge/rshift.asm',
+        'store': 'mpn/x86_64w/sandybridge/store.asm',
+        'sub_n': 'mpn/x86_64w/sandybridge/sub_n.asm',
+        'submul_1': 'mpn/x86_64w/sandybridge/submul_1.asm',
+        'xnor_n': 'mpn/x86_64w/sandybridge/xnor_n.asm',
+        'xor_n': 'mpn/x86_64w/sandybridge/xor_n.asm',
+        'add_n': 'mpn/x86_64w/sandybridge/add_n.asm'
+    }
+
+    subdir('ivybridge')
+endif

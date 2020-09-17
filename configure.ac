@@ -1248,7 +1248,7 @@ case $host in
           skylakeavx-pc-msys|skylakeavx-w64-mingw*|skylakeavx-*-cygwin*)
             path_64="x86_64w/skylake/avx x86_64w/skylake x86_64w/haswell x86_64w/sandybridge x86_64w" ;;
           broadwell-pc-msys|broadwell-w64-mingw*|broadwell-*-cygwin*)
-            path_64="x86_64w/haswell/broadwell x86_64w/haswell/avx x86_64w/haswell x86_64w/sandybridge x86_64w" ;;
+            path_64="x86_64w/haswell/avx x86_64w/haswell x86_64w/sandybridge x86_64w" ;;
           atom-pc-msys|atom-w64-mingw*|atom-*-cygwin*)
             path_64="x86_64w/atom x86_64w" ;;
           nano-pc-msys|nano-w64-mingw*|nano-*-cygwin*)

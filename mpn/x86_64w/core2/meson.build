@@ -1,0 +1,57 @@
+if 'core2' in arch_set
+    mpn_hdr_map += {
+        'gmp-mparam.h': 'mpn/x86_64w/core2/gmp-mparam.h.in'
+    }
+
+    mpn_src_map += {
+        'addadd_n': 'mpn/x86_64w/core2/addadd_n.asm',
+        'addlsh1_n': 'mpn/x86_64w/core2/addlsh1_n.asm',
+        'addlsh_n': 'mpn/x86_64w/core2/addlsh_n.asm',
+        'addmul_1': 'mpn/x86_64w/core2/addmul_1.asm',
+        'addmul_2': 'mpn/x86_64w/core2/addmul_2.asm',
+        'addsub_n': 'mpn/x86_64w/core2/addsub_n.asm',
+        'and_n': 'mpn/x86_64w/core2/and_n.asm',
+        'andn_n': 'mpn/x86_64w/core2/andn_n.asm',
+        'com_n': 'mpn/x86_64w/core2/com_n.asm',
+        'copyd': 'mpn/x86_64w/core2/copyd.asm',
+        'copyi': 'mpn/x86_64w/core2/copyi.asm',
+        'divexact_byff': 'mpn/x86_64w/core2/divexact_byff.asm',
+        'divrem_hensel_qr_1_2': 'mpn/x86_64w/core2/divrem_hensel_qr_1_2.asm',
+        'hamdist': 'mpn/x86_64w/core2/hamdist.asm',
+        'ior_n': 'mpn/x86_64w/core2/ior_n.asm',
+        'iorn_n': 'mpn/x86_64w/core2/iorn_n.asm',
+        'karaadd': 'mpn/x86_64w/core2/karaadd.asm',
+        'karasub': 'mpn/x86_64w/core2/karasub.asm',
+        'lshift': 'mpn/x86_64w/core2/lshift.asm',
+        'lshift1': 'mpn/x86_64w/core2/lshift1.asm',
+        'mod_1_1': 'mpn/x86_64w/core2/mod_1_1.asm',
+        'mod_1_2': 'mpn/x86_64w/core2/mod_1_2.asm',
+        'mod_1_3': 'mpn/x86_64w/core2/mod_1_3.asm',
+        'mul_1': 'mpn/x86_64w/core2/mul_1.asm',
+        'mul_2': 'mpn/x86_64w/core2/mul_2.asm',
+        'mul_basecase': 'mpn/x86_64w/core2/mul_basecase.asm',
+        'mullow_n_basecase': 'mpn/x86_64w/core2/mullow_n_basecase.asm',
+        'nand_n': 'mpn/x86_64w/core2/nand_n.asm',
+        'nior_n': 'mpn/x86_64w/core2/nior_n.asm',
+        'popcount': 'mpn/x86_64w/core2/popcount.asm',
+        'redc_1': 'mpn/x86_64w/core2/redc_1.asm',
+        'rsh1add_n': 'mpn/x86_64w/core2/rsh1add_n.asm',
+        'rsh1sub_n': 'mpn/x86_64w/core2/rsh1sub_n.asm',
+        'rsh_divrem_hensel_qr_1_2': 'mpn/x86_64w/core2/rsh_divrem_hensel_qr_1_2.asm',
+        'rshift': 'mpn/x86_64w/core2/rshift.asm',
+        'rshift1': 'mpn/x86_64w/core2/rshift1.asm',
+        'store': 'mpn/x86_64w/core2/store.asm',
+        'sub_n': 'mpn/x86_64w/core2/sub_n.asm',
+        'subadd_n': 'mpn/x86_64w/core2/subadd_n.asm',
+        'sublsh1_n': 'mpn/x86_64w/core2/sublsh1_n.asm',
+        'submul_1': 'mpn/x86_64w/core2/submul_1.asm',
+        'sumdiff_n': 'mpn/x86_64w/core2/sumdiff_n.asm',
+        'udiv_qrnnd': 'mpn/x86_64w/core2/udiv_qrnnd.asm',
+        'umul_ppmm': 'mpn/x86_64w/core2/umul_ppmm.asm',
+        'xnor_n': 'mpn/x86_64w/core2/xnor_n.asm',
+        'xor_n': 'mpn/x86_64w/core2/xor_n.asm',
+        'add_n': 'mpn/x86_64w/core2/add_n.asm'
+    }
+
+    subdir('penryn')
+endif
