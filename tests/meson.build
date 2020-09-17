@@ -22,7 +22,7 @@ subdir('rand')
 subdir('misc')
 subdir('cxx')
 
-test_src = mpn_test_src + fft_test_src + mpz_test_src + mpq_test_src + mpf_test_src + rand_test_src + misc_test_src + [ 
+test_src = mpn_test_src + fft_test_src + mpz_test_src + mpq_test_src + mpf_test_src + rand_test_src + cxx_test_src + misc_test_src + [ 
     't-bswap.c',
     't-constants.c',
     't-count_zeros.c',

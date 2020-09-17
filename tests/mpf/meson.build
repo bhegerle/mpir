@@ -1,4 +1,5 @@
 mpf_test_src = [
+    'mpf/reuse.c',
     'mpf/t-add.c',
     'mpf/t-cmp_d.c',
     'mpf/t-cmp_si.c',
@@ -24,5 +25,5 @@ mpf_test_src = [
     'mpf/t-sqrt_ui.c',
     'mpf/t-sub.c',
     'mpf/t-trunc.c',
-    'mpf/t-ui_div.c'
+    'mpf/t-ui_div.c' 
 ]

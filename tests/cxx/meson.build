@@ -1,4 +1,4 @@
-mpz_test_src = [
+cxx_test_src = [
     'cxx/t-assign.cc',
     'cxx/t-binary.cc',
     'cxx/t-cast.cc',

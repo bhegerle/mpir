@@ -5,5 +5,5 @@ rand_test_src = [
     'rand/t-rand.c',
     'rand/t-urbui.c',
     'rand/t-urmui.c',
-    'rand/t-urndmm.c'
+    'rand/t-urndmm.c' 
 ]
