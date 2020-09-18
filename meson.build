@@ -6,14 +6,14 @@ c = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 windows = host_machine.system() == 'windows'
 
-if get_option('with-yasm') != ''
-    yasm = find_program(get_option('with-yasm'))
+if windows 
+    yasm = find_program([get_option('with-yasm'), 'vsyasm.exe'], 
+        dirs : ['C:\\Program Files\\yasm\\'], 
+        required : false)
 else
-    if windows 
-        yasm = find_program('vsyasm.exe', dirs : ['C:\\Program Files\\yasm\\'])
-    else
-        yasm = find_program('yasm')
-    endif
+    yasm = find_program(
+        [get_option('with-yasm'), 'yasm'], 
+        required : false)
 endif
 
 subdir('mpn')
@@ -145,33 +145,18 @@ type_conf_map = {
         std::locale f();''',  name : 'std::locale test')
 }
 
-config_map = header_conf_map + func_conf_map + attr_conf_map + type_conf_map + {
+config_map = header_conf_map + func_conf_map + attr_conf_map + type_conf_map + mpn_conf_map + {
     'LIBGMP_DLL': windows and get_option('default_library') != 'static',
     'HAVE_STRINGIZE': c.compiles('''#define f(x) #x
         char *c = f(0);''', name : 'stringize test'),
     'HAVE_ALLOCA': have_alloca,   
     'WANT_ASSERT': get_option('enable-assert'),
-    'HAVE_CALLING_CONVENTIONS': have_calling_conventions,
     'WANT_TMP_ALLOCA': alloca == 'alloca',
     'WANT_TMP_REENTRANT': alloca == 'malloc-reentrant',
     'WANT_TMP_NOTREENTRANT': alloca == 'malloc-notreentrant',
     'WANT_TMP_DEBUG': alloca == 'debug',
     'WANT_FFT': get_option('enable-fft')
 }
-
-if limb_endianness == 'big'
-    config_map += { 'HAVE_LIMB_BIG_ENDIAN': true }
-elif limb_endianness == 'little'
-    config_map += { 'HAVE_LIMB_LITTLE_ENDIAN': true }
-endif
-
-if double_ieee_endianness == 'big'
-    config_map += { 'HAVE_DOUBLE_IEEE_BIG_ENDIAN': true }
-elif double_ieee_endianness == 'little'
-    config_map += { 'HAVE_DOUBLE_IEEE_LITTLE_ENDIAN': true }
-elif double_ieee_endianness == 'little_swapped'
-    config_map += { 'HAVE_DOUBLE_IEEE_LITTLE_SWAPPED': true }
-endif
 
 # configure
 conf_data = configuration_data()
@@ -190,22 +175,6 @@ conf_data.set('SIZEOF_UNSIGNED_LONG_LONG', c.sizeof('unsigned long long'))
 conf_data.set('SIZEOF_UNSIGNED_SHORT', c.sizeof('unsigned short'))
 
 # select sources
-mpn_src = []
-yasm_src = []
-foreach f, src : mpn_src_map
-    if src.endswith('.asm')
-        conf_data.set10('HAVE_NATIVE_mpn_' + f, true)
-        # yasm_src += src
-    elif src.endswith('.as')
-        conf_data.set10('HAVE_NATIVE_mpn_' + f, true)
-        yasm_src += src
-    elif src.endswith('.dummy')
-        conf_data.set10('HAVE_NATIVE_mpn_' + f, true)
-    elif src.endswith('.c')
-        mpn_src += src
-    endif
-endforeach
-
 configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
 configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
 
@@ -236,19 +205,17 @@ elif alloca == 'debug'
     mpir_src += 'tal-debug.c'
 endif
 
-if get_option('enable-fft')
+# Build the libraries.
+if yasm_src.length() > 0
+    mpir_src += [yasm_gen.process(yasm_src)]
 endif
 
-# assemble sources
-
-yasm_obj = yasm_gen.process(yasm_src)
-
-mpir_lib = library('mpir', 
-    mpir_src + [yasm_obj], 
+mpir_lib = library('mpir', mpir_src, 
     c_args : '-D__GMP_WITHIN_GMP=1')
 
 mpirxx_lib = library('mpirxx', mpirxx_src, 
     cpp_args : '-D__GMP_WITHIN_GMP=1')
 
+# Setup tests.
 test_inc = include_directories('.', 'tests')
 subdir('tests')

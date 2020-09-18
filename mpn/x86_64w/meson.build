@@ -1,7 +1,8 @@
 if 'x86_64' in arch_set
     mpn_hdr_map += {
         'gmp-mparam.h': 'mpn/x86_64w/gmp-mparam.h.in',
-        'longlong_inc.h': 'mpn/x86_64w/longlong_inc.h.in'
+        'longlong_inc.h': 'mpn/x86_64w/longlong_inc.h.in',
+        'yasm_mac.inc': 'mpn/x86_64w/yasm_mac.inc'
     }
 
     mpn_src_map += {
@@ -37,10 +38,7 @@ if 'x86_64' in arch_set
     subdir('haswell')
     subdir('skylake')
     subdir('atom')
-    
-    yasm_gen = generator(yasm,
-        output: '@BASENAME@.obj',
-        arguments: ['-fwin64', '-o', '@OUTPUT@', '-I', 'mpn/x86_64w', '@INPUT@'])
-
-    configure_file(input : 'yasm_mac.inc', output : 'yasm_mac.inc', copy : true)
+        
+    yasm_format += '64'
+    yasm_obj_ext = '.obj'
 endif

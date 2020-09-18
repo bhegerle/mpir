@@ -2,6 +2,7 @@ if 'x86_64' in arch_set
     mpn_hdr_map += {
         'longlong_inc.h': 'mpn/x86_64/longlong_inc.h.in',
         'gmp-mparam.h': 'mpn/x86_64/gmp-mparam.h.in',
+        'yasm_mac.inc': 'yasm_mac.inc.nofat'
     }
 
     mpn_src_map += {
@@ -30,15 +31,6 @@ if 'x86_64' in arch_set
     subdir('sandybridge')
     subdir('bulldozer')
     
-    if host_machine.system() == 'darwin'
-        yasm_format = 'macho64'
-    else
-        yasm_format = 'elf64'
-    endif
-    
-    yasm_gen = generator(yasm,
-        output: '@BASENAME@.obj',
-        arguments: ['-f' + yasm_format, '-o', '@OUTPUT@', '-I', 'mpn/x86_64w', '@INPUT@'])
-
-    configure_file(input : 'yasm_mac.inc', output : 'yasm_mac.inc', copy : true)
+    yasm_format += '64'
+    yasm_obj_ext = '.o'
 endif

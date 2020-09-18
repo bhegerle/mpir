@@ -1,6 +1,16 @@
-have_calling_conventions = false
-double_ieee_endianness = host_machine.endian()
-limb_endianness = host_machine.endian()
+mpn_conf_map += { 'HAVE_CALLING_CONVENTIONS': false }
+
+if host_machine.endian() == 'big'
+    mpn_conf_map += { 
+        'HAVE_DOUBLE_IEEE_BIG_ENDIAN': true,
+        'HAVE_LIMB_BIG_ENDIAN': true 
+     }
+elif host_machine.endian() == 'little'
+    mpn_conf_map += { 
+        'HAVE_DOUBLE_IEEE_LITTLE_ENDIAN': true,
+        'HAVE_LIMB_LITTLE_ENDIAN': true 
+    }
+endif
 
 mpn_hdr_map = {
     'gmp-mparam.h': 'mpn/generic/gmp-mparam.h.in',
@@ -10,8 +20,7 @@ mpn_hdr_map = {
 mpn_src_map = {
     'add': 'mpn/generic/add.c',
     'add_1': 'mpn/generic/add_1.c',
-    # 'add_err1_n': 'mpn/generic/add_err1_n.c',
-    'add_err1_n': 'mpn/x86_64/add_err1_n.s',
+    'add_err1_n': 'mpn/generic/add_err1_n.c',
     'add_err2_n': 'mpn/generic/add_err2_n.c',
     'add_n': 'mpn/generic/add_n.c',
     'addadd_n': 'mpn/generic/addadd_n.c',
