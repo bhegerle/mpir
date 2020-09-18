@@ -14,6 +14,8 @@ else
     yasm = find_program(
         [get_option('with-yasm'), 'yasm'], 
         required : false)
+
+    m4 = find_program('m4', required : false)
 endif
 
 subdir('mpn')
@@ -166,7 +168,8 @@ foreach symbol, flag : config_map
 endforeach
 
 conf_data.set_quoted('VERSION', meson.project_version())
-conf_data.set('BITS_PER_MP_LIMB', '(8 * SIZEOF_MP_LIMB_T)')
+conf_data.set('BITS_PER_MP_LIMB', '(8 * SIZEOF_MP_LIMB_T)') # this is not a great solution,
+                                                            # because it doesn't work in the m4 include
 conf_data.set('GMP_NAIL_BITS', 0)
 conf_data.set('SIZEOF_UINTMAX_T', c.sizeof('uintmax_t', prefix : '#include <stdint.h>'))
 conf_data.set('SIZEOF_UNSIGNED', c.sizeof('unsigned'))
@@ -187,9 +190,9 @@ mpir_src = mpn_src + mpz_src + fft_src + mpq_src + mpf_src + printf_src + scanf_
     'assert.c', 'compat.c', 
     # 'cpuid.c', 
     'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c',
-    'mp_dv_tab.c', 'mp_get_fns.c', 'mp_minv_tab.c', 'mp_set_fns.c', 'nextprime.c', 'primesieve.c', 'randbui.c', 'randclr.c',
-    'randdef.c', 'randiset.c', 'randlc2s.c', 'randlc2x.c', 'randmt.c', 'randmts.c', 'randmui.c', 'rands.c', 'randsd.c',
-    'randsdui.c', 'version.c'
+    'mp_dv_tab.c', 'mp_get_fns.c', 'mp_minv_tab.c', 'mp_set_fns.c', 'nextprime.c', 'primesieve.c', 'randbui.c',
+    'randclr.c', 'randdef.c', 'randiset.c', 'randlc2s.c', 'randlc2x.c', 'randmt.c', 'randmts.c', 'randmui.c',
+    'rands.c', 'randsd.c', 'randsdui.c', 'version.c'
 ]
 mpir_inc = []
 
@@ -206,6 +209,10 @@ elif alloca == 'debug'
 endif
 
 # Build the libraries.
+if asm_src.length() > 0
+    mpir_src += [asm_pregen.process(asm_src)]
+endif
+
 if yasm_src.length() > 0
     mpir_src += [yasm_gen.process(yasm_src)]
 endif
