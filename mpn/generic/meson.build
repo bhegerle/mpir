@@ -176,7 +176,7 @@ mpn_src_map = {
     'toom_eval_pm2exp': 'mpn/generic/toom_eval_pm2exp.c',
     'toom_eval_pm2rexp': 'mpn/generic/toom_eval_pm2rexp.c',
     'toom_interpolate_16pts': 'mpn/generic/toom_interpolate_16pts.c',
-    'udiv_w_sdiv': 'mpn/generic/udiv_w_sdiv.c',
+    # 'udiv_w_sdiv': 'mpn/generic/udiv_w_sdiv.c',
     'urandomb': 'mpn/generic/urandomb.c',
     'urandomm': 'mpn/generic/urandomm.c',
     'xnor_n': 'mpn/generic/xnor_n.c',
