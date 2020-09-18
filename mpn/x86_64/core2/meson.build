@@ -1,0 +1,52 @@
+if 'core2' in arch_set
+    mpn_hdr_map += {
+        'gmp-mparam.h': 'mpn/x86_64/core2/gmp-mparam.h.in',
+    }
+
+    mpn_src_map += {
+        'sub_n': 'mpn/x86_64/core2/sub_n.as',
+        'and_n': 'mpn/x86_64/core2/and_n.as',
+        'xnor_n': 'mpn/x86_64/core2/xnor_n.as',
+        'redc_1': 'mpn/x86_64/core2/redc_1.as',
+        'addlsh_n': 'mpn/x86_64/core2/addlsh_n.as',
+        'mul_1': 'mpn/x86_64/core2/mul_1.asm',
+        'sumdiff_n': 'mpn/x86_64/core2/sumdiff_n.asm',
+        'divrem_hensel_qr_1_2': 'mpn/x86_64/core2/divrem_hensel_qr_1_2.asm',
+        'rsh1sub_n': 'mpn/x86_64/core2/rsh1sub_n.as',
+        'addadd_n': 'mpn/x86_64/core2/addadd_n.asm',
+        'divexact_byff': 'mpn/x86_64/core2/divexact_byff.as',
+        'addmul_1': 'mpn/x86_64/core2/addmul_1.asm',
+        'xor_n': 'mpn/x86_64/core2/xor_n.as',
+        'submul_1': 'mpn/x86_64/core2/submul_1.asm',
+        'addmul_2': 'mpn/x86_64/core2/addmul_2.as',
+        'nand_n': 'mpn/x86_64/core2/nand_n.as',
+        'subadd_n': 'mpn/x86_64/core2/subadd_n.asm',
+        'store': 'mpn/x86_64/core2/store.asm',
+        'addsub_n': 'mpn/x86_64/core2/addsub_n.asm',
+        'copyd': 'mpn/x86_64/core2/copyd.as',
+        'hamdist': 'mpn/x86_64/core2/hamdist.asm',
+        'copyi': 'mpn/x86_64/core2/copyi.asm',
+        'popcount': 'mpn/x86_64/core2/popcount.asm',
+        'nior_n': 'mpn/x86_64/core2/nior_n.as',
+        'rsh_divrem_hensel_qr_1_2': 'mpn/x86_64/core2/rsh_divrem_hensel_qr_1_2.asm',
+        'mullow_n_basecase': 'mpn/x86_64/core2/mullow_n_basecase.asm',
+        'mod_1_3': 'mpn/x86_64/core2/mod_1_3.asm',
+        'ior_n': 'mpn/x86_64/core2/ior_n.as',
+        'lshift': 'mpn/x86_64/core2/lshift.asm',
+        'iorn_n': 'mpn/x86_64/core2/iorn_n.as',
+        'sublsh1_n': 'mpn/x86_64/core2/sublsh1_n.as',
+        'mod_1_2': 'mpn/x86_64/core2/mod_1_2.asm',
+        'andn_n': 'mpn/x86_64/core2/andn_n.as',
+        'karaadd': 'mpn/x86_64/core2/karaadd.asm',
+        'com_n': 'mpn/x86_64/core2/com_n.as',
+        'add_n': 'mpn/x86_64/core2/add_n.as',
+        'mod_1_1': 'mpn/x86_64/core2/mod_1_1.asm',
+        'mul_basecase': 'mpn/x86_64/core2/mul_basecase.as',
+        'mul_2': 'mpn/x86_64/core2/mul_2.as',
+        'karasub': 'mpn/x86_64/core2/karasub.asm',
+        'rsh1add_n': 'mpn/x86_64/core2/rsh1add_n.as',
+        'rshift': 'mpn/x86_64/core2/rshift.asm',
+    }
+
+    subdir('penryn')
+endif

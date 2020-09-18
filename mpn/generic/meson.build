@@ -10,7 +10,8 @@ mpn_hdr_map = {
 mpn_src_map = {
     'add': 'mpn/generic/add.c',
     'add_1': 'mpn/generic/add_1.c',
-    'add_err1_n': 'mpn/generic/add_err1_n.c',
+    # 'add_err1_n': 'mpn/generic/add_err1_n.c',
+    'add_err1_n': 'mpn/x86_64/add_err1_n.s',
     'add_err2_n': 'mpn/generic/add_err2_n.c',
     'add_n': 'mpn/generic/add_n.c',
     'addadd_n': 'mpn/generic/addadd_n.c',
