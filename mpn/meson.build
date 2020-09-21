@@ -1,10 +1,27 @@
-mpn_conf_map = {}
-
 arch = get_option('host-arch')
 
 if arch == 'auto'
     arch = host_machine.cpu_family()
 endif
+
+mpn_conf_data = configuration_data()
+
+mpn_conf_data.set('TEXT_SECTION', '.text')
+mpn_conf_data.set('DATA_SECTION', '.data')
+mpn_conf_data.set('LABEL_SUFFIX', ':')
+mpn_conf_data.set('GLOBL_SECTION', '.globl')
+mpn_conf_data.set('GLOBL_ATTR', '')
+mpn_conf_data.set('GSYM_PREFIX', '')
+mpn_conf_data.set('RODATA_SECTION', '     .section        .rodata')
+mpn_conf_data.set('TYPE_DIRECTIVE', '.type  $1,@$2')
+mpn_conf_data.set('SIZE_DIRECTIVE', '.size  $1,$2')
+mpn_conf_data.set('LSYM_PREFIX', '.L')
+mpn_conf_data.set('W32', '.long')
+mpn_conf_data.set('ALIGN_LOGARITHMIC', 'no')
+mpn_conf_data.set('SQR_KARATSUBA_THRESHOLD', '24')
+mpn_conf_data.set('SIZEOF_UNSIGNED', '4')
+mpn_conf_data.set10('WANT_ASSERT', get_option('enable-assert'))
+mpn_conf_data.set('ALIGN_FILL', 'yes')
 
 subdir('generic')
 
@@ -43,12 +60,21 @@ if arch != 'generic'
     sym_prefix = c.symbols_have_underscore_prefix()
 
     # Go into each subdir, which will overwrite entries in mpn_src_map with native implementations.
-    # This might overwrite mpn_conf_map as well.
+    # This might adjust mpn_conf_data as well.
     if windows
         yasm_format = 'win'
 
         subdir('x86_64w')
     else
+        asm_test = custom_target('asm_test',
+            output : 'asm_test.s',
+            input : 'asm_test.c',
+            command : c.cmd_array() + ['-S', '-o', '@OUTPUT@', '@INPUT@'])
+
+        run_command('test.py', asm_test.full_path())
+
+        mpn_conf_data.set('WANT_PROFILING', '`no\'')
+        
         # Map the OS to the binary format; build files for 64-bit arch will append 64 to these.
         if host_machine.system() == 'darwin'
             yasm_format = 'macho' 
@@ -68,7 +94,7 @@ foreach f, src : mpn_src_map
     if src.endswith('.c')
         mpn_src += src
     else
-        mpn_conf_map += { 'HAVE_NATIVE_mpn_' + f: true }
+        mpn_conf_data.set('HAVE_NATIVE_mpn_' + f, 1)
         
         if src.endswith('.asm')
             if windows 

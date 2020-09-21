@@ -1,16 +1,14 @@
-mpn_conf_map += { 'HAVE_CALLING_CONVENTIONS': false }
+mpn_conf_data.set('HAVE_CALLING_CONVENTIONS', 1)
 
 if host_machine.endian() == 'big'
-    mpn_conf_map += { 
-        'HAVE_DOUBLE_IEEE_BIG_ENDIAN': true,
-        'HAVE_LIMB_BIG_ENDIAN': true 
-     }
-elif host_machine.endian() == 'little'
-    mpn_conf_map += { 
-        'HAVE_DOUBLE_IEEE_LITTLE_ENDIAN': true,
-        'HAVE_LIMB_LITTLE_ENDIAN': true 
-    }
+    endian_vars = ['HAVE_DOUBLE_IEEE_BIG_ENDIAN', 'HAVE_LIMB_BIG_ENDIAN']
+else
+    endian_vars = ['HAVE_DOUBLE_IEEE_LITTLE_ENDIAN', 'HAVE_LIMB_LITTLE_ENDIAN']
 endif
+
+foreach v : endian_vars
+    mpn_conf_data.set(v, 1)
+endforeach
 
 mpn_hdr_map = {
     'gmp-mparam.h': 'mpn/generic/gmp-mparam.h.in',

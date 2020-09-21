@@ -1,9 +1,11 @@
 if 'x86_64' in arch_set
+    mpn_conf_data.set('BITS_PER_MP_LIMB', 64)
+
     mpn_hdr_map += {
         'longlong_inc.h': 'mpn/x86_64/longlong_inc.h.in',
         'gmp-mparam.h': 'mpn/x86_64/gmp-mparam.h.in',
         'yasm_mac.inc': 'yasm_mac.inc.nofat',
-        'config.m4': 'mpn/x86_64/config.m4.in',
+        'config.m4': 'config.m4.in',
         'asm-defs.m4': 'mpn/asm-defs.m4',
         'x86_64-defs.m4': 'mpn/x86_64/x86_64-defs.m4'
     }
