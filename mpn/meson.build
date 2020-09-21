@@ -40,6 +40,8 @@ if arch != 'generic'
     message('Enabling native implementations for:')
     message(' + '.join(arch_set))
 
+    sym_prefix = c.symbols_have_underscore_prefix()
+
     # Go into each subdir, which will overwrite entries in mpn_src_map with native implementations.
     # This might overwrite mpn_conf_map as well.
     if windows
