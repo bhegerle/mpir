@@ -11,6 +11,7 @@ test_lib_src = [
 
 test_lib = library('test_lib_src', test_lib_src, 
     include_directories : test_inc,
+    link_with : [mpir_lib, mpirxx_lib],
     c_args : '-D__GMP_WITHIN_GMP=1')
 
 subdir('mpn')

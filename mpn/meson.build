@@ -110,15 +110,21 @@ foreach f, src : mpn_src_map
     endif
 endforeach
 
+pic_asm = get_option('default_library') != 'static'
 if asm_src.length() != 0
     if not m4.found()
         error('M4 is required for this host-arch')
     endif
 
+    m4_args = ['@INPUT@', '-o@OUTPUT@', '-I', 'mpn']
+    if pic_asm
+       m4_args += ['-DPIC']
+    endif
+
     message('configuring m4/assembler')
     asm_pregen = generator(m4,
         output : '@BASENAME@.s',
-        arguments : ['@INPUT@', '-o@OUTPUT@', '-I', 'mpn'],
+        arguments : m4_args,
         capture : true)
 endif
 
@@ -127,8 +133,13 @@ if yasm_src.length() > 0
         error('YASM is required for this host-arch')
     endif
 
+    yasm_args = ['-f', yasm_format, '-I', '.', '@INPUT@', '-o', '@OUTPUT@']
+    if pic_asm
+       yasm_args += ['-D', 'PIC']
+    endif
+
     message('configuring yasm to output ' + yasm_obj_ext + ' files in ' + yasm_format + ' format')
     yasm_gen = generator(yasm,
         output : '@BASENAME@' + yasm_obj_ext,
-        arguments : ['-f', yasm_format, '-I', '.', '@INPUT@', '-o', '@OUTPUT@'])
+        arguments : yasm_args)
 endif

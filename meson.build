@@ -198,7 +198,8 @@ endif
 mpir_lib = library('mpir', mpir_src, 
     c_args : '-D__GMP_WITHIN_GMP=1')
 
-mpirxx_lib = library('mpirxx', mpirxx_src, 
+mpirxx_lib = library('mpirxx', mpirxx_src,
+    link_with : mpir_lib, 
     cpp_args : '-D__GMP_WITHIN_GMP=1')
 
 # Setup tests.
