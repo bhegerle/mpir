@@ -119,15 +119,14 @@ func_conf_map = {
     'HAVE_VSNPRINTF': c.has_function('vsnprintf', prefix : '#include <stdio.h>')
 }
 
+func_attrs = c.get_supported_function_attributes('const', 'malloc', 'noreturn')
+
 attr_conf_map = {
-    'HAVE_ATTRIBUTE_CONST': c.compiles('int foo (int x) __attribute__ ((const));', 
-        name : '__attribute__((const))'),
-    'HAVE_ATTRIBUTE_MALLOC': c.compiles('void *foo (int x) __attribute__ ((malloc));',
-        name : '__attribute__ ((malloc))'),
+    'HAVE_ATTRIBUTE_CONST': 'const' in func_attrs,
+    'HAVE_ATTRIBUTE_MALLOC': 'malloc' in func_attrs,
     'HAVE_ATTRIBUTE_MODE': c.compiles('typedef int SItype __attribute__ ((mode (SI)));',
-        name : '__attribute__ ((mode (XX)))'),
-    'HAVE_ATTRIBUTE_NORETURN': c.compiles('void foo (int x) __attribute__ ((noreturn));',
-        name : '__attribute__ ((noreturn))')
+            name : '__attribute__ ((mode (XX)))'),
+    'HAVE_ATTRIBUTE_NORETURN': 'noreturn))'
 }
 
 type_conf_map = {
