@@ -1,4 +1,4 @@
-project('mpir', ['c', 'cpp'], version : '1.11')
+project('mpir', ['c', 'cpp'], version : '3.0')
 
 fs = import('fs')
 
@@ -36,15 +36,10 @@ have_alloca = (
     or c.has_function('alloca', prefix : '#include <alloca.h>')
 )
 
-alloca = get_option('enable-alloca')
-if alloca == 'yes'
-    alloca = 'alloca'
-elif alloca == 'no'
-    alloca = 'malloc-reentrant'
-elif alloca == 'reentrant'
-    alloca = have_alloca ? 'alloca' : 'malloc-reentrant'
-elif alloca == 'notreentrant'
-    alloca = have_alloca ? 'alloca' : 'malloc-notreentrant'
+allocator = get_option('allocator')
+
+if allocator == 'alloca' and not have_alloca
+    error('alloca selected, but not available')
 endif
 
 # other feature tests
@@ -152,10 +147,10 @@ config_map = header_conf_map + func_conf_map + attr_conf_map + type_conf_map + m
         char *c = f(0);''', name : 'stringize test'),
     'HAVE_ALLOCA': have_alloca,   
     'WANT_ASSERT': get_option('enable-assert'),
-    'WANT_TMP_ALLOCA': alloca == 'alloca',
-    'WANT_TMP_REENTRANT': alloca == 'malloc-reentrant',
-    'WANT_TMP_NOTREENTRANT': alloca == 'malloc-notreentrant',
-    'WANT_TMP_DEBUG': alloca == 'debug',
+    'WANT_TMP_ALLOCA': allocator == 'alloca',
+    'WANT_TMP_REENTRANT': allocator == 'malloc-reentrant',
+    'WANT_TMP_NOTREENTRANT': allocator == 'malloc-notreentrant',
+    'WANT_TMP_DEBUG': allocator == 'debug',
     'WANT_FFT': get_option('enable-fft')
 }
 

@@ -4,9 +4,10 @@ option('with-yasm', type : 'string',
 option('enable-assert', type : 'boolean', value : false, 
     description : 'enable ASSERT checking')
 
-option('enable-alloca', type : 'combo', 
-    choices : ['yes', 'no', 'reentrant', 'notreentrant', 'alloca', 'malloc-reentrant', 'malloc-notreentrant', 'debug'], 
-    value : 'reentrant')
+option('allocator', type : 'combo', 
+    choices : ['alloca', 'malloc-reentrant', 'malloc-notreentrant', 'debug'], 
+    value : 'malloc-reentrant', 
+    description : 'allocator to use')
 
 option('enable-fft', type : 'boolean', value : true, 
     description : 'enable FFTs for multiplication')
@@ -19,3 +20,4 @@ option('host-arch', type : 'combo',
         'atom', 'nano'
     ], 
     value : 'auto')
+    
