@@ -1,0 +1,35 @@
+changequote(<,>)
+ifdef(<__CONFIG_M4_INCLUDED__>,,<
+define(<CONFIG_TOP_SRCDIR>,<`.'>)
+define(<WANT_ASSERT>,@WANT_ASSERT@)
+define(<WANT_PROFILING>,<@WANT_PROFILING@>)
+define(<M4WRAP_SPURIOUS>,<no>)
+define(<TEXT>, <@TEXT_SECTION@>)
+define(<DATA>, <@DATA_SECTION@>)
+define(<LABEL_SUFFIX>, <@LABEL_SUFFIX@>)
+define(<GLOBL>, <@GLOBL_SECTION@>)
+define(<GLOBL_ATTR>, <@GLOBL_ATTR@>)
+define(<GSYM_PREFIX>, <@GSYM_PREFIX@>)
+define(<RODATA>, <@RODATA_SECTION@>)
+define(<TYPE>, <@TYPE_DIRECTIVE@>)
+define(<SIZE>, <@SIZE_DIRECTIVE@>)
+define(<LSYM_PREFIX>, <@LSYM_PREFIX@>)
+define(<W32>, <@W32@>)
+define(<ALIGN_LOGARITHMIC>,<@ALIGN_LOGARITHMIC@>)
+define(<ALIGN_FILL_0x90>,<@ALIGN_FILL@>)
+define(<SQR_KARATSUBA_THRESHOLD>,<@SQR_KARATSUBA_THRESHOLD@>)
+define(<SIZEOF_UNSIGNED>,<@SIZEOF_UNSIGNED@>)
+define(<GMP_LIMB_BITS>,@BITS_PER_MP_LIMB@)
+define(<GMP_NAIL_BITS>,0)
+define(<GMP_NUMB_BITS>,eval(GMP_LIMB_BITS-GMP_NAIL_BITS))
+>)
+changequote(`,')
+ifdef(`__CONFIG_M4_INCLUDED__',,`
+include(`asm-defs.m4')
+include(`x86_64-defs.m4')
+@DNFE_HAVE_ABI_64@
+@DNFE_HAVE_LIMB_LITTLE_ENDIAN@
+@DNFE_HAVE_HAVE_DOUBLE_IEEE_LITTLE_ENDIAN@
+')
+define(`__CONFIG_M4_INCLUDED__')
+
