@@ -38,10 +38,6 @@ have_alloca = (
 
 allocator = get_option('allocator')
 
-if allocator == 'alloca' and not have_alloca
-    error('alloca selected, but not available')
-endif
-
 # other feature tests
 nix_prefix = '''
     #include <unistd.h>
@@ -191,14 +187,14 @@ mpir_src = mpn_src + mpz_src + fft_src + mpq_src + mpf_src + printf_src + scanf_
 mpir_inc = []
 
 # alloc src
-if alloca == 'alloca'
+if allocator == 'alloca'
     assert(have_alloca, 'alloca specified, but alloca not available')
     mpir_src += 'tal-reent.c'
-elif alloca == 'malloc-reentrant'
+elif allocator == 'malloc-reentrant'
     mpir_src += 'tal-reent.c'
-elif alloca == 'malloc-notreentrant'
+elif allocator == 'malloc-notreentrant'
     mpir_src += 'tal-notreent.c'
-elif alloca == 'debug'
+elif allocator == 'debug'
     mpir_src += 'tal-debug.c'
 endif
 
