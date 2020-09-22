@@ -110,7 +110,7 @@ foreach f, src : mpn_src_map
     endif
 endforeach
 
-pic_asm = get_option('default_library') != 'static'
+pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
 if asm_src.length() != 0
     if not m4.found()
         error('M4 is required for this host-arch')
