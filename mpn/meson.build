@@ -65,12 +65,12 @@ if arch != 'generic'
 
         subdir('x86_64w')
     else
-        asm_test = custom_target('asm_test',
-            output : 'asm_test.s',
-            input : 'asm_test.c',
-            command : c.cmd_array() + ['-S', '-o', '@OUTPUT@', '@INPUT@'])
+#        asm_test = custom_target('asm_test',
+#            output : 'asm_test.s',
+#            input : 'asm_test.c',
+#            command : c.cmd_array() + ['-S', '-o', '@OUTPUT@', '@INPUT@'])
 
-        run_command('test.py', asm_test.full_path())
+#        run_command('test.py', asm_test.full_path())
 
         mpn_conf_data.set('WANT_PROFILING', '`no\'')
         
@@ -109,7 +109,7 @@ foreach f, src : mpn_src_map
     endif
 endforeach
 
-pic_asm = get_option('default_library') != 'static'
+pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
 if asm_src.length() != 0
     if not m4.found()
         error('M4 is required for this host-arch')
