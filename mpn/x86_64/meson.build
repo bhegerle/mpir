@@ -1,6 +1,26 @@
 if 'x86_64' in arch_set
     mpn_conf_data.set('BITS_PER_MP_LIMB', 64)
 
+    alignment = c.run('''
+        #include <stdint.h>
+        #include <stdio.h>
+        int main() {
+            int64_t x, y;
+            asm(".align 4\nx:\n\t" "jmp y\n\t"
+                ".align 4\ny:\n\t" "leaq x(%%rip), %0\n\t" "leaq y(%%rip), %1"
+                : "=r"(x), "=r"(y) : : );
+            printf("%ld", y - x);
+            return 0;
+        }''', name : 'alignment test').stdout().strip()
+    
+    if alignment == '4'
+        mpn_conf_data.set('ALIGN_LOGARITHMIC', 'no')
+    elif alignment == '16'
+        mpn_conf_data.set('ALIGN_LOGARITHMIC', 'yes')
+    else
+        error('could not interpret .align assembly directive')
+    endif
+
     mpn_hdr_map += {
         'longlong_inc.h': 'mpn/x86_64/longlong_inc.h.in',
         'gmp-mparam.h': 'mpn/x86_64/gmp-mparam.h.in',
