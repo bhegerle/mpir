@@ -21,6 +21,25 @@ if 'x86_64' in arch_set
         error('could not interpret .align assembly directive')
     endif
 
+    foreach p : ['', '_']
+        if c.links('asm("@0@x: ret"); void x(); int main(){ x(); }'.format(p))
+           sym_prefix = p
+           break
+        endif
+    endforeach
+
+    if sym_prefix == ''
+       mpn_conf_data.set('GSYM_PREFIX', '')
+       mpn_conf_data.set('LSYM_PREFIX', '.L')
+    elif sym_prefix == '_'
+       mpn_conf_data.set('GSYM_PREFIX', '_')
+       mpn_conf_data.set('LSYM_PREFIX', 'L')
+    endif
+
+    # RODATA
+    # TYPE
+    # SIZE
+
     mpn_hdr_map += {
         'longlong_inc.h': 'mpn/x86_64/longlong_inc.h.in',
         'gmp-mparam.h': 'mpn/x86_64/gmp-mparam.h.in',
