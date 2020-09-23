@@ -21,24 +21,15 @@ if 'x86_64' in arch_set
         error('could not interpret .align assembly directive')
     endif
 
-    foreach p : ['', '_']
-        if c.links('asm("@0@x: ret"); void x(); int main(){ x(); }'.format(p))
-           sym_prefix = p
-           break
-        endif
+    python3 = find_program('python3')
+    foreach k : ['TEXT', 'DATA', 'LABEL_SUFFIX', 'GLOBL', 
+                 'GSYM_PREFIX', 'RODATA', 'TYPE', 'SIZE', 'LSYM_PREFIX']
+        message('testing for ' + k)
+        cmd = run_command(python3, ['asm_test.py', k] + c.cmd_array())
+        assert(cmd.returncode() == 0, 'could not determine ' + k)
+        mpn_conf_data.set(k, cmd.stdout().strip())
+        message('    ' + cmd.stdout().strip())
     endforeach
-
-    if sym_prefix == ''
-       mpn_conf_data.set('GSYM_PREFIX', '')
-       mpn_conf_data.set('LSYM_PREFIX', '.L')
-    elif sym_prefix == '_'
-       mpn_conf_data.set('GSYM_PREFIX', '_')
-       mpn_conf_data.set('LSYM_PREFIX', 'L')
-    endif
-
-    # RODATA
-    # TYPE
-    # SIZE
 
     mpn_hdr_map += {
         'longlong_inc.h': 'mpn/x86_64/longlong_inc.h.in',
