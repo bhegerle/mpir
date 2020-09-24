@@ -6,15 +6,8 @@ endif
 
 mpn_conf_data = configuration_data()
 
-mpn_conf_data.set('TEXT_SECTION', '.text')
-mpn_conf_data.set('DATA_SECTION', '.data')
-mpn_conf_data.set('LABEL_SUFFIX', ':')
-mpn_conf_data.set('GLOBL_SECTION', '.globl')
-mpn_conf_data.set('GLOBL_ATTR', '')
-mpn_conf_data.set('LSYM_PREFIX', '.L')
-mpn_conf_data.set('W32', '.long')
 mpn_conf_data.set('SQR_KARATSUBA_THRESHOLD', '24')
-mpn_conf_data.set('SIZEOF_UNSIGNED', '4')
+mpn_conf_data.set('SIZEOF_UNSIGNED', c.sizeof('unsigned'))
 mpn_conf_data.set10('WANT_ASSERT', get_option('enable-assert'))
 mpn_conf_data.set('ALIGN_FILL', 'yes')
 

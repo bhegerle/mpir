@@ -4,6 +4,7 @@ fs = import('fs')
 
 c = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
+python = find_program('python3')
 windows = host_machine.system() == 'windows'
 
 if windows 
