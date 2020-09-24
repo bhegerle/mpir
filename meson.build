@@ -7,6 +7,9 @@ cpp = meson.get_compiler('cpp')
 python = find_program('python3')
 windows = host_machine.system() == 'windows'
 
+assert(not (windows and get_option('default_library') == 'both'),
+    'windows build must be static or shared, but not both')
+
 if windows 
     yasm = find_program([get_option('with-yasm'), 'vsyasm.exe'], 
         dirs : ['C:\\Program Files\\yasm\\'], 
@@ -166,8 +169,8 @@ foreach out_hdr, in_hdr : mpn_hdr_map
 endforeach
 
 mpir_src = mpn_src + mpz_src + fft_src + mpq_src + mpf_src + printf_src + scanf_src + [
-    'assert.c', 'compat.c', 
-    # 'cpuid.c', 
+    'assert.c', 
+    # 'compat.c', 'cpuid.c',  
     'errno.c', 'extract-dbl.c', 'invalid.c', 'memory.c', 'mp_bpl.c', 'mp_clz_tab.c',
     'mp_dv_tab.c', 'mp_get_fns.c', 'mp_minv_tab.c', 'mp_set_fns.c', 'nextprime.c', 'primesieve.c', 'randbui.c',
     'randclr.c', 'randdef.c', 'randiset.c', 'randlc2s.c', 'randlc2x.c', 'randmt.c', 'randmts.c', 'randmui.c',
@@ -196,12 +199,15 @@ if yasm_src.length() > 0
     mpir_src += [yasm_gen.process(yasm_src)]
 endif
 
-mpir_lib = library('mpir', mpir_src, 
-    c_args : '-D__GMP_WITHIN_GMP=1')
-
-mpirxx_lib = library('mpirxx', mpirxx_src,
-    link_with : mpir_lib, 
-    cpp_args : '-D__GMP_WITHIN_GMP=1')
+c_args = ['-D__GMP_WITHIN_GMP=1', '-D__GMP_WITHIN_GMPXX=1']
+if windows and get_option('default_library') == 'shared'
+    mpir_lib = library('mpir', mpir_src + mpirxx_src, c_args : c_args)
+    libs = [mpir_lib]
+else 
+    mpir_lib = library('mpir', mpir_src, c_args : c_args)
+    mpirxx_lib = library('mpirxx', mpirxx_src, link_with : mpir_lib, c_args : c_args)
+    libs = [mpir_lib, mpirxx_lib]
+endif
 
 # Setup tests.
 test_inc = include_directories('.', 'tests')

@@ -182,12 +182,14 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.  */
 #define __GMP_DECLSPEC_IMPORT
 #endif
 
-#ifndef __GMP_WITHIN_GMP
-#define __GMP_WITHIN_GMP 0
-#endif
-
-#ifndef __GMP_WITHIN_GMPXX
-#define __GMP_WITHIN_GMPXX 0
+#if defined( _MSC_VER )
+#  if defined( MSC_BUILD_DLL )
+#    define __GMP_LIBGMP_DLL   1
+#    define __GMP_WITHIN_GMP   1
+#    define __GMP_WITHIN_GMPXX 1
+#  elif defined( MSC_USE_DLL )
+#    define __GMP_LIBGMP_DLL   1
+#  endif
 #endif
 
 #if __GMP_LIBGMP_DLL

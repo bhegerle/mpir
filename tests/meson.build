@@ -9,10 +9,15 @@ test_lib_src = [
     'trace.c'
 ]
 
-test_lib = library('test_lib_src', test_lib_src, 
+test_lib_obj = []
+foreach l : libs
+    test_lib_obj += [l.extract_all_objects()]
+endforeach
+
+test_lib = static_library('test_lib', test_lib_src, 
+    objects : test_lib_obj,
     include_directories : test_inc,
-    link_with : [mpir_lib, mpirxx_lib],
-    c_args : '-D__GMP_WITHIN_GMP=1')
+    c_args : c_args)
 
 subdir('mpn')
 subdir('fft')
@@ -40,9 +45,10 @@ foreach src : test_src
     suite = fs.parent(src)
     exe_name = fs.replace_suffix(src, '').underscorify()
     
-    exe = executable(exe_name, src, 
+    exe = executable(exe_name, [src], 
         include_directories : test_inc,
-        link_with : [mpir_lib, mpirxx_lib, test_lib])
+        link_with : test_lib,
+        c_args : c_args)
         
     test(name, exe, suite : suite, timeout : 90)
 endforeach
