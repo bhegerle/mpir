@@ -201,11 +201,22 @@ endif
 
 c_args = ['-D__GMP_WITHIN_GMP=1', '-D__GMP_WITHIN_GMPXX=1']
 if windows and get_option('default_library') == 'shared'
-    mpir_lib = library('mpir', mpir_src + mpirxx_src, c_args : c_args)
+    mpir_lib = library('mpir', 
+        mpir_src + mpirxx_src, 
+        c_args : c_args, 
+        cpp_args : c_args)
+        
     libs = [mpir_lib]
 else 
-    mpir_lib = library('mpir', mpir_src, c_args : c_args)
-    mpirxx_lib = library('mpirxx', mpirxx_src, link_with : mpir_lib, c_args : c_args)
+    mpir_lib = library('mpir', 
+        mpir_src, 
+        c_args : c_args)
+
+    mpirxx_lib = library('mpirxx', 
+        mpirxx_src, 
+        link_with : mpir_lib, 
+        cpp_args : c_args)
+
     libs = [mpir_lib, mpirxx_lib]
 endif
 
