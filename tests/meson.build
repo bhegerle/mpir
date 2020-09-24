@@ -45,7 +45,8 @@ foreach src : test_src
     suite = fs.parent(src)
     exe_name = fs.replace_suffix(src, '').underscorify()
     
-    exe = executable(exe_name, [src], 
+    exe = executable(exe_name, 
+        [src], 
         include_directories : test_inc,
         link_with : test_lib,
         c_args : c_args, 

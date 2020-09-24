@@ -4,12 +4,12 @@ if 'k10' in arch_set
     }
 
     mpn_src_map += {
-        'lshift': 'mpn/x86_64/k8/k10/lshift.as',
-        'rshift': 'mpn/x86_64/k8/k10/rshift.as',
         'hamdist': 'mpn/x86_64/k8/k10/hamdist.asm',
-        'popcount': 'mpn/x86_64/k8/k10/popcount.asm',
         'karaadd': 'mpn/x86_64/k8/k10/karaadd.asm',
         'karasub': 'mpn/x86_64/k8/k10/karasub.asm',
+        'lshift': 'mpn/x86_64/k8/k10/lshift.as',
+        'popcount': 'mpn/x86_64/k8/k10/popcount.asm',
+        'rshift': 'mpn/x86_64/k8/k10/rshift.as',
     }
 
     subdir('k102')

@@ -27,19 +27,21 @@ if 'x86_64' in arch_set
             'x86_64-defs.m4': 'mpn/x86_64/x86_64-defs.m4'
         }
 
-        mpn_src_map += {
-            'divexact_by3c': 'mpn/x86_64/divexact_by3c.as',
-            'divrem_euclidean_qr_2': 'mpn/x86_64/divrem_euclidean_qr_2.as',
-            'sqr_basecase': 'mpn/x86_64/sqr_basecase.asm',
-            'divrem_2': 'mpn/x86_64/divrem_2.as',
-            'mulmid_basecase': 'mpn/x86_64/mulmid_basecase.asm',
-            'divexact_byfobm1': 'mpn/x86_64/divexact_byfobm1.as',
-            'modexact_1c_odd': 'mpn/x86_64/modexact_1c_odd.as',
-            'sub_err1_n': 'mpn/x86_64/sub_err1_n.asm',
-            'add_err2_n': 'mpn/x86_64/add_err2_n.asm',
-            'mullow_n_basecase': 'mpn/x86_64/mullow_n_basecase.asm',
-            'sub_err2_n': 'mpn/x86_64/sub_err2_n.asm',
-            'divrem_euclidean_qr_1': 'mpn/x86_64/divrem_euclidean_qr_1.as',
+        mpn_src_map += {            'add_err1_n': 'add_err1_n.asm',
+            'add_err2_n': 'add_err2_n.asm',
+            'divexact_by3c': 'divexact_by3c.as',
+            'divexact_byfobm1': 'divexact_byfobm1.as',
+            'divrem_2': 'divrem_2.as',
+            'divrem_euclidean_qr_1': 'divrem_euclidean_qr_1.as',
+            'preinv_divrem_1': 'divrem_euclidean_qr_1.as',
+            'divrem_euclidean_qr_2': 'divrem_euclidean_qr_2.as',
+            'modexact_1_odd': 'modexact_1c_odd.as',
+            'modexact_1c_odd': 'modexact_1c_odd.as',
+            'mullow_n_basecase': 'mullow_n_basecase.asm',
+            'mulmid_basecase': 'mulmid_basecase.asm',
+            'sqr_basecase': 'sqr_basecase.asm',
+            'sub_err1_n': 'sub_err1_n.asm',
+            'sub_err2_n': 'sub_err2_n.asm',
 
             'preinv_divrem_1': '.dummy'
         }

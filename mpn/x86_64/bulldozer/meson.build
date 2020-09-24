@@ -7,8 +7,8 @@ if 'bulldozer' in arch_set
         'com_n': 'mpn/x86_64/bulldozer/com_n.asm',
         'copyd': 'mpn/x86_64/bulldozer/copyd.asm',
         'copyi': 'mpn/x86_64/bulldozer/copyi.asm',
-        'mul_basecase': 'mpn/x86_64/bulldozer/mul_basecase.asm',
         'lshift': 'mpn/x86_64/bulldozer/lshift.asm',
+        'mul_basecase': 'mpn/x86_64/bulldozer/mul_basecase.asm',
         'rshift': 'mpn/x86_64/bulldozer/rshift.asm',
     }
 
