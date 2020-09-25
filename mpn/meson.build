@@ -69,38 +69,42 @@ endif
 # mpn_src_map will now have functions as keys and sources as values,
 # but the sources could be duplicated, so split mpn_src_map into yasm 
 # and m4/asm maps which will naturally de-duplicate the sources.
-mpn_src_map = {}
+mpnc_src_map = {}
 yasm_src_map = {}
 asm_src_map = {}
 native_functions = []
 foreach f, src : mpn_src_map
     if src.endswith('.c')
-        mpn_src += { src: src }
+        mpnc_src_map += { src: src }
     else
         mpn_conf_data.set('HAVE_NATIVE_mpn_' + f, 1)
         
         if src.endswith('.asm')
             if windows 
-                yasm_src += { src: src }
+                yasm_src_map += { src: src }
             else 
-                asm_src += { src: src }
+                asm_src_map += { src: src }
             endif
         elif src.endswith('.as')
-            yasm_src += { src: src }
+            yasm_src_map += { src: src }
         else
             warning('unexpected extension ' + src)
         endif
     endif
 endforeach
 
-mpn_src = []
-foreach s, _ : mpn_src_map
+foreach s, _ : mpnc_src_map
     mpn_src += [s]
 endforeach
 
 asm_src = []
 foreach s, _ : asm_src_map
     asm_src += [s]
+endforeach
+
+yasm_src = []
+foreach s, _ : yasm_src_map
+    yasm_src += [s]
 endforeach
 
 if asm_src.length() != 0
@@ -121,11 +125,6 @@ if asm_src.length() != 0
         arguments : m4_args,
         capture : true)
 endif
-
-yasm_src = []
-foreach s, _ : yasm_src_map
-    yasm_src += [s]
-endforeach
 
 if yasm_src.length() > 0
     pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
