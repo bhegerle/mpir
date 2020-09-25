@@ -4,7 +4,7 @@ if 'penryn' in arch_set
     }
 
     mpn_src_map += {
+        'mod_1_1': 'mpn/x86_64w/core2/penryn/mod_1_1.asm',
         'sumdiff_n': 'mpn/x86_64w/core2/penryn/sumdiff_n.asm',
-        'mod_1_1': 'mpn/x86_64w/core2/penryn/mod_1_1.asm'
     }
 endif

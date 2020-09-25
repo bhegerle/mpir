@@ -4,6 +4,7 @@ if 'haswellavx' in arch_set
     }
 
     mpn_src_map += {
+        'addmul_1': 'mpn/x86_64w/haswell/avx/addmul_1.asm',
         'addsub_n': 'mpn/x86_64w/haswell/avx/addsub_n.asm',
         'and_n': 'mpn/x86_64w/haswell/avx/and_n.asm',
         'andn_n': 'mpn/x86_64w/haswell/avx/andn_n.asm',
@@ -21,10 +22,10 @@ if 'haswellavx' in arch_set
         'rshift': 'mpn/x86_64w/haswell/avx/rshift.asm',
         'rshift1': 'mpn/x86_64w/haswell/avx/rshift1.asm',
         'sqr_basecase': 'mpn/x86_64w/haswell/avx/sqr_basecase.asm',
+        'sqr_basec1': 'mpn/x86_64w/haswell/avx/sqr_basecase.asm',
         'subadd_n': 'mpn/x86_64w/haswell/avx/subadd_n.asm',
         'submul_1': 'mpn/x86_64w/haswell/avx/submul_1.asm',
         'xnor_n': 'mpn/x86_64w/haswell/avx/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/haswell/avx/xor_n.asm',
-        'addmul_1': 'mpn/x86_64w/haswell/avx/addmul_1.asm'
     }
 endif

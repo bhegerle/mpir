@@ -4,6 +4,8 @@ if 'haswell' in arch_set
     }
     
     mpn_src_map += {
+        'add_nc': 'mpn/x86_64w/haswell/add_n.asm',
+        'add_n': 'mpn/x86_64w/haswell/add_n.asm',
         'addlsh1_n': 'mpn/x86_64w/haswell/addlsh1_n.asm',
         'addmul_1': 'mpn/x86_64w/haswell/addmul_1.asm',
         'addmul_2': 'mpn/x86_64w/haswell/addmul_2.asm',
@@ -38,14 +40,15 @@ if 'haswell' in arch_set
         'rshift': 'mpn/x86_64w/haswell/rshift.asm',
         'rshift1': 'mpn/x86_64w/haswell/rshift1.asm',
         'sqr_basecase': 'mpn/x86_64w/haswell/sqr_basecase.asm',
+        'sqr_basec1': 'mpn/x86_64w/haswell/sqr_basecase.asm',
         'store': 'mpn/x86_64w/haswell/store.asm',
+        'sub_nc': 'mpn/x86_64w/haswell/sub_n.asm',
         'sub_n': 'mpn/x86_64w/haswell/sub_n.asm',
         'sublsh1_n': 'mpn/x86_64w/haswell/sublsh1_n.asm',
         'submul_1': 'mpn/x86_64w/haswell/submul_1.asm',
         'sumdiff_n': 'mpn/x86_64w/haswell/sumdiff_n.asm',
         'xnor_n': 'mpn/x86_64w/haswell/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/haswell/xor_n.asm',
-        'add_n': 'mpn/x86_64w/haswell/add_n.asm'
     }
 
     subdir('avx')

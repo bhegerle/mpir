@@ -4,6 +4,7 @@ if 'skylake' in arch_set
     }
 
     mpn_src_map += {
+        'add_n': 'mpn/x86_64w/skylake/add_n.asm',
         'addlsh1_n': 'mpn/x86_64w/skylake/addlsh1_n.asm',
         'addmul_1': 'mpn/x86_64w/skylake/addmul_1.asm',
         'addmul_2': 'mpn/x86_64w/skylake/addmul_2.asm',
@@ -37,6 +38,7 @@ if 'skylake' in arch_set
         'rsh_divrem_hensel_qr_1_2': 'mpn/x86_64w/skylake/rsh_divrem_hensel_qr_1_2.asm',
         'rshift': 'mpn/x86_64w/skylake/rshift.asm',
         'sqr_basecase': 'mpn/x86_64w/skylake/sqr_basecase.asm',
+        'sqr_basec1': 'mpn/x86_64w/skylake/sqr_basecase.asm',
         'store': 'mpn/x86_64w/skylake/store.asm',
         'sub_n': 'mpn/x86_64w/skylake/sub_n.asm',
         'sublsh1_n': 'mpn/x86_64w/skylake/sublsh1_n.asm',
@@ -44,7 +46,6 @@ if 'skylake' in arch_set
         'sumdiff_n': 'mpn/x86_64w/skylake/sumdiff_n.asm',
         'xnor_n': 'mpn/x86_64w/skylake/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/skylake/xor_n.asm',
-        'add_n': 'mpn/x86_64w/skylake/add_n.asm'
     }
     
     subdir('avx')

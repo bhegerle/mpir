@@ -4,9 +4,12 @@ if 'core2' in arch_set
     }
 
     mpn_src_map += {
+        'add_nc': 'mpn/x86_64w/core2/add_n.asm',
+        'add_n': 'mpn/x86_64w/core2/add_n.asm',
         'addadd_n': 'mpn/x86_64w/core2/addadd_n.asm',
         'addlsh1_n': 'mpn/x86_64w/core2/addlsh1_n.asm',
         'addlsh_n': 'mpn/x86_64w/core2/addlsh_n.asm',
+        'addmul_1c': 'mpn/x86_64w/core2/addmul_1.asm',
         'addmul_1': 'mpn/x86_64w/core2/addmul_1.asm',
         'addmul_2': 'mpn/x86_64w/core2/addmul_2.asm',
         'addsub_n': 'mpn/x86_64w/core2/addsub_n.asm',
@@ -27,9 +30,12 @@ if 'core2' in arch_set
         'mod_1_1': 'mpn/x86_64w/core2/mod_1_1.asm',
         'mod_1_2': 'mpn/x86_64w/core2/mod_1_2.asm',
         'mod_1_3': 'mpn/x86_64w/core2/mod_1_3.asm',
+        'mul_1c': 'mpn/x86_64w/core2/mul_1.asm',
         'mul_1': 'mpn/x86_64w/core2/mul_1.asm',
         'mul_2': 'mpn/x86_64w/core2/mul_2.asm',
         'mul_basecase': 'mpn/x86_64w/core2/mul_basecase.asm',
+        'core2_mbc2': 'mpn/x86_64w/core2/mul_basecase.asm',
+        'core2_mbc1': 'mpn/x86_64w/core2/mul_basecase.asm',
         'mullow_n_basecase': 'mpn/x86_64w/core2/mullow_n_basecase.asm',
         'nand_n': 'mpn/x86_64w/core2/nand_n.asm',
         'nior_n': 'mpn/x86_64w/core2/nior_n.asm',
@@ -41,16 +47,17 @@ if 'core2' in arch_set
         'rshift': 'mpn/x86_64w/core2/rshift.asm',
         'rshift1': 'mpn/x86_64w/core2/rshift1.asm',
         'store': 'mpn/x86_64w/core2/store.asm',
+        'sub_nc': 'mpn/x86_64w/core2/sub_n.asm',
         'sub_n': 'mpn/x86_64w/core2/sub_n.asm',
         'subadd_n': 'mpn/x86_64w/core2/subadd_n.asm',
         'sublsh1_n': 'mpn/x86_64w/core2/sublsh1_n.asm',
+        'submul_1c': 'mpn/x86_64w/core2/submul_1.asm',
         'submul_1': 'mpn/x86_64w/core2/submul_1.asm',
         'sumdiff_n': 'mpn/x86_64w/core2/sumdiff_n.asm',
         'udiv_qrnnd': 'mpn/x86_64w/core2/udiv_qrnnd.asm',
         'umul_ppmm': 'mpn/x86_64w/core2/umul_ppmm.asm',
         'xnor_n': 'mpn/x86_64w/core2/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/core2/xor_n.asm',
-        'add_n': 'mpn/x86_64w/core2/add_n.asm'
     }
 
     subdir('penryn')

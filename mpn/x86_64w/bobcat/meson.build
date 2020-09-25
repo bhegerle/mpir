@@ -4,11 +4,15 @@ if 'bobcat' in arch_set
     }
 
     mpn_src_map += {
+        'add_err1_n': 'mpn/x86_64w/bobcat/add_err1_n.asm',
+        'add_nc': 'mpn/x86_64w/bobcat/add_n.asm',
         'add_n': 'mpn/x86_64w/bobcat/add_n.asm',
         'addadd_n': 'mpn/x86_64w/bobcat/addadd_n.asm',
         'addlsh1_n': 'mpn/x86_64w/bobcat/addlsh1_n.asm',
         'addlsh_n': 'mpn/x86_64w/bobcat/addlsh_n.asm',
+        'addlsh_nc': 'mpn/x86_64w/bobcat/addlsh_n.asm',
         'addmul_1': 'mpn/x86_64w/bobcat/addmul_1.asm',
+        'addmul_1c': 'mpn/x86_64w/bobcat/addmul_1.asm',
         'addsub_n': 'mpn/x86_64w/bobcat/addsub_n.asm',
         'and_n': 'mpn/x86_64w/bobcat/and_n.asm',
         'andn_n': 'mpn/x86_64w/bobcat/andn_n.asm',
@@ -29,8 +33,11 @@ if 'bobcat' in arch_set
         'lshift2': 'mpn/x86_64w/bobcat/lshift2.asm',
         'lshiftc': 'mpn/x86_64w/bobcat/lshiftc.asm',
         'mod_1_1': 'mpn/x86_64w/bobcat/mod_1_1.asm',
+        'mul_1c': 'mpn/x86_64w/bobcat/mul_1.asm',
         'mul_1': 'mpn/x86_64w/bobcat/mul_1.asm',
         'mul_basecase': 'mpn/x86_64w/bobcat/mul_basecase.asm',
+        'bobcat_mbc1': 'mpn/x86_64w/bobcat/mul_basecase.asm',
+        'bobcat_mbc2': 'mpn/x86_64w/bobcat/mul_basecase.asm',
         'nand_n': 'mpn/x86_64w/bobcat/nand_n.asm',
         'nior_n': 'mpn/x86_64w/bobcat/nior_n.asm',
         'not': 'mpn/x86_64w/bobcat/not.asm',
@@ -45,14 +52,16 @@ if 'bobcat' in arch_set
         'sqr_basecase': 'mpn/x86_64w/bobcat/sqr_basecase.asm',
         'store': 'mpn/x86_64w/bobcat/store.asm',
         'sub_err1_n': 'mpn/x86_64w/bobcat/sub_err1_n.asm',
+        'sub_nc': 'mpn/x86_64w/bobcat/sub_n.asm',
         'sub_n': 'mpn/x86_64w/bobcat/sub_n.asm',
         'subadd_n': 'mpn/x86_64w/bobcat/subadd_n.asm',
         'sublsh1_n': 'mpn/x86_64w/bobcat/sublsh1_n.asm',
         'sublsh_n': 'mpn/x86_64w/bobcat/sublsh_n.asm',
+        'sublsh_nc': 'mpn/x86_64w/bobcat/sublsh_n.asm',
         'submul_1': 'mpn/x86_64w/bobcat/submul_1.asm',
+        'submul_1c': 'mpn/x86_64w/bobcat/submul_1.asm',
         'sumdiff_n': 'mpn/x86_64w/bobcat/sumdiff_n.asm',
         'xnor_n': 'mpn/x86_64w/bobcat/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/bobcat/xor_n.asm',
-        'add_err1_n': 'mpn/x86_64w/bobcat/add_err1_n.asm'
     }
 endif

@@ -4,9 +4,13 @@ if 'atom' in arch_set
     }
 
     mpn_src_map += {
+        'add_nc': 'mpn/x86_64w/atom/add_n.asm',
+        'add_n': 'mpn/x86_64w/atom/add_n.asm',
         'addlsh1_n': 'mpn/x86_64w/atom/addlsh1_n.asm',
         'addlsh_n': 'mpn/x86_64w/atom/addlsh_n.asm',
+        'addlsh_nc': 'mpn/x86_64w/atom/addlsh_n.asm',
         'addmul_1': 'mpn/x86_64w/atom/addmul_1.asm',
+        'addmul_1c': 'mpn/x86_64w/atom/addmul_1.asm',
         'addmul_2': 'mpn/x86_64w/atom/addmul_2.asm',
         'and_n': 'mpn/x86_64w/atom/and_n.asm',
         'andn_n': 'mpn/x86_64w/atom/andn_n.asm',
@@ -21,9 +25,12 @@ if 'atom' in arch_set
         'mod_1_1': 'mpn/x86_64w/atom/mod_1_1.asm',
         'mod_1_2': 'mpn/x86_64w/atom/mod_1_2.asm',
         'mod_1_3': 'mpn/x86_64w/atom/mod_1_3.asm',
+        'mul_1c': 'mpn/x86_64w/atom/mul_1.asm',
         'mul_1': 'mpn/x86_64w/atom/mul_1.asm',
         'mul_2': 'mpn/x86_64w/atom/mul_2.asm',
         'mul_basecase': 'mpn/x86_64w/atom/mul_basecase.asm',
+        'atom_mbc1': 'mpn/x86_64w/atom/mul_basecase.asm',
+        'atom_mbc2': 'mpn/x86_64w/atom/mul_basecase.asm',
         'nand_n': 'mpn/x86_64w/atom/nand_n.asm',
         'nior_n': 'mpn/x86_64w/atom/nior_n.asm',
         'redc_1': 'mpn/x86_64w/atom/redc_1.asm',
@@ -32,11 +39,13 @@ if 'atom' in arch_set
         'rsh_divrem_hensel_qr_1_1': 'mpn/x86_64w/atom/rsh_divrem_hensel_qr_1_1.asm',
         'sqr_basecase': 'mpn/x86_64w/atom/sqr_basecase.asm',
         'store': 'mpn/x86_64w/atom/store.asm',
+        'sub_nc': 'mpn/x86_64w/atom/sub_n.asm',
         'sub_n': 'mpn/x86_64w/atom/sub_n.asm',
         'sublsh1_n': 'mpn/x86_64w/atom/sublsh1_n.asm',
         'sublsh_n': 'mpn/x86_64w/atom/sublsh_n.asm',
+        'sublsh_nc': 'mpn/x86_64w/atom/sublsh_n.asm',
         'submul_1': 'mpn/x86_64w/atom/submul_1.asm',
+        'submul_1c': 'mpn/x86_64w/atom/submul_1.asm',
         'xnor_n': 'mpn/x86_64w/atom/xnor_n.asm',
-        'add_n': 'mpn/x86_64w/atom/add_n.asm'
     }
 endif

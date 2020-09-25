@@ -4,11 +4,14 @@ if 'nehalem' in arch_set
     }
 
     mpn_src_map += {
+        'add_err1_n': 'mpn/x86_64w/nehalem/add_err1_n.asm',
+        'add_nc': 'mpn/x86_64w/nehalem/add_n.asm',
         'add_n': 'mpn/x86_64w/nehalem/add_n.asm',
         'addadd_n': 'mpn/x86_64w/nehalem/addadd_n.asm',
         'addlsh1_n': 'mpn/x86_64w/nehalem/addlsh1_n.asm',
         'addlsh_n': 'mpn/x86_64w/nehalem/addlsh_n.asm',
         'addmul_1': 'mpn/x86_64w/nehalem/addmul_1.asm',
+        'addmul_1c': 'mpn/x86_64w/nehalem/addmul_1.asm',
         'addmul_2': 'mpn/x86_64w/nehalem/addmul_2.asm',
         'addsub_n': 'mpn/x86_64w/nehalem/addsub_n.asm',
         'and_n': 'mpn/x86_64w/nehalem/and_n.asm',
@@ -27,9 +30,12 @@ if 'nehalem' in arch_set
         'mod_1_1': 'mpn/x86_64w/nehalem/mod_1_1.asm',
         'mod_1_2': 'mpn/x86_64w/nehalem/mod_1_2.asm',
         'mod_1_3': 'mpn/x86_64w/nehalem/mod_1_3.asm',
+        'mul_1c': 'mpn/x86_64w/nehalem/mul_1.asm',
         'mul_1': 'mpn/x86_64w/nehalem/mul_1.asm',
         'mul_2': 'mpn/x86_64w/nehalem/mul_2.asm',
         'mul_basecase': 'mpn/x86_64w/nehalem/mul_basecase.asm',
+        'nehalem_mbc2': 'mpn/x86_64w/nehalem/mul_basecase.asm',
+        'nehalem_mbc1': 'mpn/x86_64w/nehalem/mul_basecase.asm',
         'nand_n': 'mpn/x86_64w/nehalem/nand_n.asm',
         'nior_n': 'mpn/x86_64w/nehalem/nior_n.asm',
         'popcount': 'mpn/x86_64w/nehalem/popcount.asm',
@@ -40,14 +46,15 @@ if 'nehalem' in arch_set
         'rshift': 'mpn/x86_64w/nehalem/rshift.asm',
         'store': 'mpn/x86_64w/nehalem/store.asm',
         'sub_err1_n': 'mpn/x86_64w/nehalem/sub_err1_n.asm',
+        'sub_nc': 'mpn/x86_64w/nehalem/sub_n.asm',
         'sub_n': 'mpn/x86_64w/nehalem/sub_n.asm',
         'subadd_n': 'mpn/x86_64w/nehalem/subadd_n.asm',
         'sublsh1_n': 'mpn/x86_64w/nehalem/sublsh1_n.asm',
         'submul_1': 'mpn/x86_64w/nehalem/submul_1.asm',
+        'submul_1c': 'mpn/x86_64w/nehalem/submul_1.asm',
         'sumdiff_n': 'mpn/x86_64w/nehalem/sumdiff_n.asm',
         'xnor_n': 'mpn/x86_64w/nehalem/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/nehalem/xor_n.asm',
-        'add_err1_n': 'mpn/x86_64w/nehalem/add_err1_n.asm'
     }
 
     subdir('westmere')

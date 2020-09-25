@@ -51,16 +51,8 @@ if arch != 'generic'
     # This might adjust mpn_conf_data as well.
     if windows
         yasm_format = 'win'
-
         subdir('x86_64w')
     else
-#        asm_test = custom_target('asm_test',
-#            output : 'asm_test.s',
-#            input : 'asm_test.c',
-#            command : c.cmd_array() + ['-S', '-o', '@OUTPUT@', '@INPUT@'])
-
-#        run_command('test.py', asm_test.full_path())
-
         mpn_conf_data.set('WANT_PROFILING', '`no\'')
         
         # Map the OS to the binary format; build files for 64-bit arch will append 64 to these.
@@ -74,32 +66,46 @@ if arch != 'generic'
     endif
 endif
 
-mpn_src = []
-yasm_src = []
-asm_src = []
+# mpn_src_map will now have functions as keys and sources as values,
+# but the sources could be duplicated, so split mpn_src_map into yasm 
+# and m4/asm maps which will naturally de-duplicate the sources.
+mpn_src_map = {}
+yasm_src_map = {}
+asm_src_map = {}
 native_functions = []
 foreach f, src : mpn_src_map
     if src.endswith('.c')
-        mpn_src += src
+        mpn_src += { src: src }
     else
         mpn_conf_data.set('HAVE_NATIVE_mpn_' + f, 1)
         
         if src.endswith('.asm')
             if windows 
-                yasm_src += src
+                yasm_src += { src: src }
             else 
-                asm_src += src
+                asm_src += { src: src }
             endif
         elif src.endswith('.as')
-            yasm_src += src
-        elif not src.endswith('.dummy')
+            yasm_src += { src: src }
+        else
             warning('unexpected extension ' + src)
         endif
     endif
 endforeach
 
-pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
+mpn_src = []
+foreach s, _ : mpn_src_map
+    mpn_src += [s]
+endforeach
+
+asm_src = []
+foreach s, _ : asm_src_map
+    asm_src += [s]
+endforeach
+
 if asm_src.length() != 0
+    pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
+
     if not m4.found()
         error('M4 is required for this host-arch')
     endif
@@ -116,7 +122,14 @@ if asm_src.length() != 0
         capture : true)
 endif
 
+yasm_src = []
+foreach s, _ : yasm_src_map
+    yasm_src += [s]
+endforeach
+
 if yasm_src.length() > 0
+    pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
+
     if not yasm.found()
         error('YASM is required for this host-arch')
     endif

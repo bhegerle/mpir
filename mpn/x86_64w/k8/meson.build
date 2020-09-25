@@ -4,10 +4,14 @@ if 'k8' in arch_set
     }
     
     mpn_src_map += {
+        'add_err1_n': 'mpn/x86_64w/k8/add_err1_n.asm',
+        'add_nc': 'mpn/x86_64w/k8/add_n.asm',
         'add_n': 'mpn/x86_64w/k8/add_n.asm',
         'addadd_n': 'mpn/x86_64w/k8/addadd_n.asm',
         'addlsh1_n': 'mpn/x86_64w/k8/addlsh1_n.asm',
         'addlsh_n': 'mpn/x86_64w/k8/addlsh_n.asm',
+        'addlsh_nc': 'mpn/x86_64w/k8/addlsh_n.asm',
+        'inclsh_n': 'mpn/x86_64w/k8/addmul_1.asm',
         'addmul_1': 'mpn/x86_64w/k8/addmul_1.asm',
         'addmul_2': 'mpn/x86_64w/k8/addmul_2.asm',
         'addsub_n': 'mpn/x86_64w/k8/addsub_n.asm',
@@ -41,6 +45,8 @@ if 'k8' in arch_set
         'mul_1': 'mpn/x86_64w/k8/mul_1.asm',
         'mul_2': 'mpn/x86_64w/k8/mul_2.asm',
         'mul_basecase': 'mpn/x86_64w/k8/mul_basecase.asm',
+        'k8_mbc1': 'mpn/x86_64w/k8/mul_basecase.asm',
+        'k8_mbc2': 'mpn/x86_64w/k8/mul_basecase.asm',
         'nand_n': 'mpn/x86_64w/k8/nand_n.asm',
         'nior_n': 'mpn/x86_64w/k8/nior_n.asm',
         'not': 'mpn/x86_64w/k8/not.asm',
@@ -55,17 +61,19 @@ if 'k8' in arch_set
         'rshift2': 'mpn/x86_64w/k8/rshift2.asm',
         'store': 'mpn/x86_64w/k8/store.asm',
         'sub_err1_n': 'mpn/x86_64w/k8/sub_err1_n.asm',
+        'sub_nc': 'mpn/x86_64w/k8/sub_n.asm',
         'sub_n': 'mpn/x86_64w/k8/sub_n.asm',
         'subadd_n': 'mpn/x86_64w/k8/subadd_n.asm',
         'sublsh1_n': 'mpn/x86_64w/k8/sublsh1_n.asm',
         'sublsh_n': 'mpn/x86_64w/k8/sublsh_n.asm',
+        'sublsh_nc': 'mpn/x86_64w/k8/sublsh_n.asm',
+        'declsh_n': 'mpn/x86_64w/k8/submul_1.asm',
         'submul_1': 'mpn/x86_64w/k8/submul_1.asm',
         'sumdiff_n': 'mpn/x86_64w/k8/sumdiff_n.asm',
         'udiv_qrnnd': 'mpn/x86_64w/k8/udiv_qrnnd.asm',
         'umul_ppmm': 'mpn/x86_64w/k8/umul_ppmm.asm',
         'xnor_n': 'mpn/x86_64w/k8/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/k8/xor_n.asm',
-        'add_err1_n': 'mpn/x86_64w/k8/add_err1_n.asm'
     }
 
     subdir('k10')

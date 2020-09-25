@@ -4,6 +4,8 @@ if 'sandybridge' in arch_set
     }
 
     mpn_src_map += {
+        'add_nc': 'mpn/x86_64w/sandybridge/add_n.asm',
+        'add_n': 'mpn/x86_64w/sandybridge/add_n.asm',
         'addmul_1': 'mpn/x86_64w/sandybridge/addmul_1.asm',
         'addmul_2': 'mpn/x86_64w/sandybridge/addmul_2.asm',
         'and_n': 'mpn/x86_64w/sandybridge/and_n.asm',
@@ -27,6 +29,8 @@ if 'sandybridge' in arch_set
         'mul_1': 'mpn/x86_64w/sandybridge/mul_1.asm',
         'mul_2': 'mpn/x86_64w/sandybridge/mul_2.asm',
         'mul_basecase': 'mpn/x86_64w/sandybridge/mul_basecase.asm',
+        'sandybridge_mbc1': 'mpn/x86_64w/sandybridge/mul_basecase.asm',
+        'sandybridge_mbc2': 'mpn/x86_64w/sandybridge/mul_basecase.asm',
         'mullow_n_basecase': 'mpn/x86_64w/sandybridge/mullow_n_basecase.asm',
         'nand_n': 'mpn/x86_64w/sandybridge/nand_n.asm',
         'nior_n': 'mpn/x86_64w/sandybridge/nior_n.asm',
@@ -36,11 +40,11 @@ if 'sandybridge' in arch_set
         'rsh_divrem_hensel_qr_1_2': 'mpn/x86_64w/sandybridge/rsh_divrem_hensel_qr_1_2.asm',
         'rshift': 'mpn/x86_64w/sandybridge/rshift.asm',
         'store': 'mpn/x86_64w/sandybridge/store.asm',
+        'sub_nc': 'mpn/x86_64w/sandybridge/sub_n.asm',
         'sub_n': 'mpn/x86_64w/sandybridge/sub_n.asm',
         'submul_1': 'mpn/x86_64w/sandybridge/submul_1.asm',
         'xnor_n': 'mpn/x86_64w/sandybridge/xnor_n.asm',
         'xor_n': 'mpn/x86_64w/sandybridge/xor_n.asm',
-        'add_n': 'mpn/x86_64w/sandybridge/add_n.asm'
     }
 
     subdir('ivybridge')
