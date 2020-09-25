@@ -15,46 +15,41 @@ if arch == 'auto'
 
         #ifdef x86_64
         #include <cpuid.h>
+        int a, b, c, d;
+        char *get_arch() {
+            int family, model;
+            if (!__get_cpuid (1, &a, &b, &c, &d))
+                return NULL;
+            family = ((a >> 20) & 0xff) + ((a >> 8) & 0xf);
+            model = ((a >> 12) & 0xf0) + ((a >> 4) & 0xf);
+            switch(family) {
+            case  0xf:
+                return "netburst";
+            case 0x6:
+                switch(model) {
+                case 0x0f: case 0x16: return "core2";
+                case 0x17: case 0x1d: return "penryn";
+                case 0x1a: case 0x1e: case 0x1f: case 0x2e: return "nehalem";
+                case 0x25: case 0x2c: case 0x2f: return "westmere";
+                case 0x2a: case 0x2d: return "sandybridge";
+                case 0x3a: case 0x3e: return "ivybridge";
+                case 0x3c: case 0x3f: case 0x45: case 0x46: return "haswell";
+                case 0x3d: case 0x47: case 0x4f: case 0x56: return "broadwell";
+                default: if(model > 0x4e) return "skylake";
+                }
+            }
+            fprintf(stderr, "could not id processor with family 0x%x / model 0x%x\n", family, model);
+            return NULL;
+        }
 
-          char *get_arch() {
-              int a, x, family, model;
-              if (!__get_cpuid (1, &a, &x, &x, &x))
-                  return NULL;
-              family = ((a >> 20) & 0xff) + ((a >> 8) & 0xf);
-              model = ((a >> 12) & 0xf0) + ((a >> 4) & 0xf);
-              switch(family) {
-              case  0xf:
-                  return "netburst";
-              case 0x6:
-                  switch(model) {
-                  case 0x0f: case 0x16: return "core2";
-                  case 0x17: case 0x1d: return "penryn";
-                  case 0x1a: case 0x1e: case 0x1f: case 0x2e: return "nehalem";
-                  case 0x25: case 0x2c: case 0x2f: return "westmere";
-                  case 0x2a: case 0x2d: return "sandybridge";
-                  case 0x3a: case 0x3e: return "ivybridge";
-                  case 0x3c: case 0x3f: case 0x45: case 0x46: return "haswell";
-                  case 0x3d: case 0x47: case 0x4f: case 0x56: return "broadwell";
-                  default: if(model > 0x4e) return "skylake";
-                  }
-              }
-              printf("could not id processor with family 0x%x / model 0x%x\n", family, model);
-              return NULL;
-          }
+        char *get_avx() { return c & 0x10000000 ? "avx" : ""; }
+#endif
 
-          char *get_avx() {
-              int c, x;
-              if (!__get_cpuid (1, &x, &x, &c, &x))
-                  return "";
-              return c & 0x10000000 ? "avx" : "";
-          }
-          #endif
-
-          int main() {
-              char *arch = get_arch();
-              if(arch) printf("%s%s", arch, get_avx());
-              return !arch;
-          }''', name : 'cpuid')
+        int main() {
+            char *arch = get_arch();
+            if(arch) printf("%s%s", arch, get_avx());
+            return !arch;
+        }''', name : 'cpuid')
 
     if auto_run.returncode() == 0
         arch = auto_run.stdout().strip()
@@ -163,5 +158,3 @@ if yasm_src.length() > 0
         arguments : yasm_args)
 endif
 
-message(asm_src)
-message(yasm_src)
