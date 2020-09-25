@@ -4,6 +4,7 @@ mpn_conf_data.set('SQR_KARATSUBA_THRESHOLD', '24')
 mpn_conf_data.set('SIZEOF_UNSIGNED', c.sizeof('unsigned'))
 mpn_conf_data.set10('WANT_ASSERT', get_option('enable-assert'))
 mpn_conf_data.set('ALIGN_FILL', 'yes')
+mpn_conf_data.set('JUMPTABSECT', '')
 
 subdir('generic')
 
@@ -68,6 +69,7 @@ if arch != 'generic'
         # Map the OS to the binary format; build files for 64-bit arch will append 64 to these.
         if host_machine.system() == 'darwin'
             yasm_format = 'macho' 
+            mpn_conf_data.set('JUMPTABSECT', 'define(`JUMPTABSECT\',`    .text\')')
         elif host_machine.system() == 'linux'
             yasm_format = 'elf' 
         endif

@@ -52,14 +52,14 @@ def fail():
     raise Exception()
 
 
-parse_asm('TEXT', r'^\s+(\.text)\b', lambda m: m[1])
-parse_asm('DATA', r'^\s+(\.data)\b', lambda m: m[1])
+parse_asm('TEXT', r'^\s+(\.text\b|\.section\s+__TEXT.*)', lambda m: m[1])
+parse_asm('DATA', r'^\s+(\.data\b|\.section\s+__DATA.*)', lambda m: m[1])
 parse_asm('LABEL_SUFFIX', r'^_?C(:)?', lambda m: m[1])
 parse_asm('GLOBL', r'^\s+(\.globl)\s+_?I\b', lambda m: m[1]) 
 parse_asm('GSYM_PREFIX', r'^(_?)C:?', lambda m: m[1])
-parse_asm('RODATA', r'^\s+(\.section)\b.*(\.rodata|__TEXT,__const)', lambda m: m[1] + ' ' + m[2])
-parse_asm('TYPE', r'^\s+(\.type)\s+_?I\s*,\s*@\w+', lambda m: m[1] + ' $1,@$2')
-parse_asm('SIZE', r'^\s+(\.size)\s+_?I\s*,\s*\d+', lambda m: m[1] + ' $1,$2')
+parse_asm('RODATA', r'^\s+(\.section)\s.*(\.rodata|__TEXT,__const)', lambda m: m[1] + ' ' + m[2])
+parse_asm('TYPE', r'^\s+(\.type)\s+_?I\s*,\s*@\w+', lambda m: m[1] + ' $1,@$2' if m else '')
+parse_asm('SIZE', r'^\s+(\.size)\s+_?I\s*,\s*\d+', lambda m: m[1] + ' $1,$2' if m else '')
 parse_asm('LSYM_PREFIX', r'^\.?L', lambda m: m[0])
 execute('ALIGN_LOGARITHMIC', r'''
         #include <stdint.h>

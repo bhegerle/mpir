@@ -25,7 +25,7 @@ if asm_test_ok
     mpn_hdr_map += {
         'longlong_inc.h': 'mpn/x86_64/longlong_inc.h.in',
         'gmp-mparam.h': 'mpn/x86_64/gmp-mparam.h.in',
-        'yasm_mac.inc': 'yasm_mac.inc.nofat',
+        'yasm_mac.inc': 'yasm_mac.inc.in',
         'config.m4': 'config.m4.in',
         'asm-defs.m4': 'mpn/asm-defs.m4',
         'x86_64-defs.m4': 'mpn/x86_64/x86_64-defs.m4'
