@@ -1,4 +1,6 @@
 if 'x86_64' in arch_set
+    use_yasm_for_asm_files = true
+    
     mpn_hdr_map += {
         'gmp-mparam.h': 'mpn/x86_64w/gmp-mparam.h.in',
         'longlong_inc.h': 'mpn/x86_64w/longlong_inc.h.in',

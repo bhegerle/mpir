@@ -1,9 +1,3 @@
-arch = get_option('host-arch')
-
-if arch == 'auto'
-    arch = host_machine.cpu_family()
-endif
-
 mpn_conf_data = configuration_data()
 
 mpn_conf_data.set('SQR_KARATSUBA_THRESHOLD', '24')
@@ -13,57 +7,82 @@ mpn_conf_data.set('ALIGN_FILL', 'yes')
 
 subdir('generic')
 
+arch = get_option('host-arch')
+
+if arch == 'auto'
+    auto_run = c.run('#define ' + host_machine.cpu_family() + '''
+        #include <stdio.h>
+
+        #ifdef x86_64
+        #include <cpuid.h>
+
+          char *get_arch() {
+              int a, x, family, model;
+              if (!__get_cpuid (1, &a, &x, &x, &x))
+                  return NULL;
+              family = ((a >> 20) & 0xff) + ((a >> 8) & 0xf);
+              model = ((a >> 12) & 0xf0) + ((a >> 4) & 0xf);
+              switch(family) {
+              case  0xf:
+                  return "netburst";
+              case 0x6:
+                  switch(model) {
+                  case 0x0f: case 0x16: return "core2";
+                  case 0x17: case 0x1d: return "penryn";
+                  case 0x1a: case 0x1e: case 0x1f: case 0x2e: return "nehalem";
+                  case 0x25: case 0x2c: case 0x2f: return "westmere";
+                  case 0x2a: case 0x2d: return "sandybridge";
+                  case 0x3a: case 0x3e: return "ivybridge";
+                  case 0x3c: case 0x3f: case 0x45: case 0x46: return "haswell";
+                  case 0x3d: case 0x47: case 0x4f: case 0x56: return "broadwell";
+                  default: if(model > 0x4e) return "skylake";
+                  }
+              }
+              printf("could not id processor with family 0x%x / model 0x%x\n", family, model);
+              return NULL;
+          }
+
+          char *get_avx() {
+              int c, x;
+              if (!__get_cpuid (1, &x, &x, &c, &x))
+                  return "";
+              return c & 0x10000000 ? "avx" : "";
+          }
+          #endif
+
+          int main() {
+              char *arch = get_arch();
+              if(arch) printf("%s%s", arch, get_avx());
+              return !arch;
+          }''', name : 'cpuid')
+
+    if auto_run.returncode() == 0
+        arch = auto_run.stdout().strip()
+        message('detected ' + arch)
+    elif
+        arch = host_machine.cpu_family()
+        message('architecture detection failed - using ' + arch)
+    endif
+endif
+
 if arch != 'generic'
-    # The values here are not ordered, but the order of subdir commands does 
-    # define a selection order on the sources.
-    arch_map = {
-        'generic': [],
-        'x86_64': ['x86_64'],
-        'netburst': ['x86_64', 'netburst'],
-        'k8': ['x86_64', 'k8'],
-        'k10': ['x86_64', 'k8', 'k10'],
-        'k102': ['x86_64', 'k8', 'k10', 'k102'],
-        'bulldozer': ['x86_64', 'bulldozer', 'k8', 'k10', 'k102'],
-        'piledriver': ['x86_64', 'bulldozer', 'piledriver', 'k8', 'k10', 'k102'],
-        'bobcat': ['x86_64', 'bobcat'],
-        'core2': ['x86_64', 'core2'],
-        'penryn': ['x86_64', 'core2', 'penryn'],
-        'nehalem': ['x86_64', 'nehalem'],
-        'westmere': ['x86_64', 'nehalem', 'westmere'],
-        'sandybridge': ['x86_64', 'sandybridge'],
-        'ivybridge': ['x86_64', 'sandybridge', 'ivybridge'],
-        'haswell': ['x86_64', 'sandybridge', 'haswell'],
-        'haswellavx': ['x86_64', 'sandybridge', 'haswell', 'haswellavx'],
-        'broadwell': ['x86_64', 'sandybridge', 'haswell', 'haswellavx'],
-        'skylake': ['x86_64', 'sandybridge', 'skylake'],
-        'skylakeavx': ['x86_64', 'sandybridge', 'haswell', 'skylake', 'skylakeavx'],
-        'atom': ['x86_64', 'atom'],
-        'nano': ['x86_64', 'k8'],
-    }
+    top_level_arch_dir = host_machine.cpu_family()
 
-    arch_set = arch_map[arch]
-    message('Enabling native implementations for:')
-    message(' + '.join(arch_set))
-
-    sym_prefix = c.symbols_have_underscore_prefix()
-
-    # Go into each subdir, which will overwrite entries in mpn_src_map with native implementations.
-    # This might adjust mpn_conf_data as well.
     if windows
         yasm_format = 'win'
-        subdir('x86_64w')
+        top_level_arch_dir += 'w'
     else
         mpn_conf_data.set('WANT_PROFILING', '`no\'')
-        
+
         # Map the OS to the binary format; build files for 64-bit arch will append 64 to these.
         if host_machine.system() == 'darwin'
             yasm_format = 'macho' 
         elif host_machine.system() == 'linux'
             yasm_format = 'elf' 
         endif
-
-        subdir('x86_64')
     endif
+
+    subdir(top_level_arch_dir)
 endif
 
 # mpn_src_map will now have functions as keys and sources as values,
@@ -80,7 +99,7 @@ foreach f, src : mpn_src_map
         mpn_conf_data.set('HAVE_NATIVE_mpn_' + f, 1)
         
         if src.endswith('.asm')
-            if windows 
+            if use_yasm_for_asm_files
                 yasm_src_map += { src: src }
             else 
                 asm_src_map += { src: src }
@@ -143,3 +162,6 @@ if yasm_src.length() > 0
         output : '@BASENAME@' + yasm_obj_ext,
         arguments : yasm_args)
 endif
+
+message(asm_src)
+message(yasm_src)
