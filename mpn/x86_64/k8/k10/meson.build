@@ -1,3 +1,5 @@
+message('    enabling native: k10')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/k8/k10/gmp-mparam.h.in',
 }

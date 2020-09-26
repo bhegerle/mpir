@@ -1,3 +1,5 @@
+message('    enabling native: nehalem')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/nehalem/gmp-mparam.h.in',
 }

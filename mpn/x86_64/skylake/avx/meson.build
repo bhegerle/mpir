@@ -1,3 +1,5 @@
+message('    enabling native: skylakeavx')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/skylake/avx/gmp-mparam.h.in',
 }

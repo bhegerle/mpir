@@ -1,3 +1,5 @@
+message('    enabling native: sandybridge')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/sandybridge/gmp-mparam.h.in',
 }

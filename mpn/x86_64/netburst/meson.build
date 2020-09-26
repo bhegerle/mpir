@@ -1,3 +1,5 @@
+message('    enabling native: netburst')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/netburst/gmp-mparam.h.in',
 }
