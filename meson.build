@@ -221,10 +221,8 @@ else
     libs = [mpir_lib, mpirxx_lib]
 endif
 
-if get_option('tests')
-    test_inc = include_directories('.', 'tests')
-    subdir('tests')
-endif
+test_inc = include_directories('.', 'tests')
+subdir('tests')
 
 libmpir_dep = declare_dependency(
     link_with : libs,

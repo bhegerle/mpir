@@ -1,7 +1,7 @@
 option('with-yasm', type : 'string', 
     description : 'use a custom Yasm')
 
-option('enable-assert', type : 'boolean', value : false, 
+option('enable_assert', type : 'boolean', value : false, 
     description : 'enable ASSERT checking')
 
 option('allocator', type : 'combo', 
@@ -9,10 +9,10 @@ option('allocator', type : 'combo',
     value : 'malloc-reentrant', 
     description : 'allocator to use')
 
-option('enable-fft', type : 'boolean', value : true, 
+option('enable_fft', type : 'boolean', value : true, 
     description : 'enable FFTs for multiplication')
 
-option('host-arch', type : 'combo', 
+option('host_arch', type : 'combo', 
     choices : [
         'auto', 'generic',
         'x86_64', 'netburst', 'k8', 'k10', 'k102', 'bulldozer', 'piledriver', 'bobcat', 
