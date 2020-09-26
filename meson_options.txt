@@ -21,4 +21,3 @@ option('host-arch', type : 'combo',
     ], 
     value : 'auto')
     
-option('tests', type : 'boolean', value : false)

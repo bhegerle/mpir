@@ -50,7 +50,8 @@ foreach src : test_src
         include_directories : test_inc,
         link_with : test_lib,
         c_args : c_args, 
-        cpp_args : c_args)
+        cpp_args : c_args,
+        build_by_default : false)
         
     test(name, exe, suite : suite, timeout : 90)
 endforeach
