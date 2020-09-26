@@ -1,3 +1,5 @@
+message('    enabling native: penryn')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/core2/penryn/gmp-mparam.h.in',
 }

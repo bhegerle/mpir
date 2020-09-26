@@ -1,3 +1,5 @@
+message('    enabling native: atom')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/atom/gmp-mparam.h.in',
 }

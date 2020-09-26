@@ -1,3 +1,5 @@
+message('    enabling native: haswellavx')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/haswell/avx/gmp-mparam.h.in',
 }

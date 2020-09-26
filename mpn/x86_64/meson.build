@@ -115,6 +115,7 @@ if asm_test_ok
         'haswell': ['sandybridge', 'haswell'],
         'haswellavx': ['sandybridge', 'haswell', 'haswell/avx'],
         'broadwell': ['sandybridge', 'haswell', 'haswell/avx', 'haswell/broadwell'],
+        'broadwellavx': ['sandybridge', 'haswell', 'haswell/avx', 'haswell/broadwell'],
         'skylake': ['sandybridge', 'skylake'],
         'skylakeavx': ['sandybridge', 'haswell', 'skylake', 'haswell/avx', 'skylake/avx'],
         'atom': ['atom'],

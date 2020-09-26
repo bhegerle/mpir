@@ -1,3 +1,5 @@
+message('    enabling native: bulldozer')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/bulldozer/gmp-mparam.h.in',
 }

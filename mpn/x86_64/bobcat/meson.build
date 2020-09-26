@@ -1,3 +1,5 @@
+message('    enabling native: bobcat')
+
 mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/bobcat/gmp-mparam.h.in',
 }

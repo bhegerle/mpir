@@ -98,6 +98,7 @@ arch_map = {
     'haswell': ['sandybridge', 'haswell'],
     'haswellavx': ['sandybridge', 'haswell', 'haswell/avx'],
     'broadwell': ['sandybridge', 'haswell', 'haswell/avx'],
+    'broadwellavx': ['sandybridge', 'haswell', 'haswell/avx'],
     'skylake': ['sandybridge', 'skylake'],
     'skylakeavx': ['sandybridge', 'haswell', 'skylake', 'haswell/avx', 'skylake/avx'],
     'atom': ['atom'],
