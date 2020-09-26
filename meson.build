@@ -11,12 +11,12 @@ assert(not (windows and get_option('default_library') == 'both'),
     'windows build must be static or shared, but not both')
 
 if windows 
-    yasm = find_program([get_option('with-yasm'), 'vsyasm.exe'], 
+    yasm = find_program([get_option('with_yasm'), 'vsyasm.exe'], 
         dirs : ['C:\\Program Files\\yasm\\'], 
         required : false)
 else
     yasm = find_program(
-        [get_option('with-yasm'), 'yasm'], 
+        [get_option('with_yasm'), 'yasm'], 
         required : false)
 
     m4 = find_program('m4', required : false)
@@ -141,12 +141,12 @@ conf_data.set10('LIBGMP_DLL', windows and get_option('default_library') != 'stat
 conf_data.set10('HAVE_STRINGIZE', c.compiles('''#define f(x) #x
         char *c = f(0);''', name : 'stringize test'))
 conf_data.set10('HAVE_ALLOCA', have_alloca)
-conf_data.set10('WANT_ASSERT', get_option('enable-assert'))
+conf_data.set10('WANT_ASSERT', get_option('enable_assert'))
 conf_data.set10('WANT_TMP_ALLOCA', allocator == 'alloca')
 conf_data.set10('WANT_TMP_REENTRANT', allocator == 'malloc-reentrant')
 conf_data.set10('WANT_TMP_NOTREENTRANT', allocator == 'malloc-notreentrant')
 conf_data.set10('WANT_TMP_DEBUG', allocator == 'debug')
-conf_data.set10('WANT_FFT', get_option('enable-fft'))
+conf_data.set10('WANT_FFT', get_option('enable_fft'))
 conf_data.set10('WANT_PROFILING', false)
 
 conf_data.set_quoted('VERSION', meson.project_version())

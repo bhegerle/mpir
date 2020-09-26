@@ -2,13 +2,13 @@ mpn_conf_data = configuration_data()
 
 mpn_conf_data.set('SQR_KARATSUBA_THRESHOLD', '24')
 mpn_conf_data.set('SIZEOF_UNSIGNED', c.sizeof('unsigned'))
-mpn_conf_data.set10('WANT_ASSERT', get_option('enable-assert'))
+mpn_conf_data.set10('WANT_ASSERT', get_option('enable_assert'))
 mpn_conf_data.set('ALIGN_FILL', 'yes')
 mpn_conf_data.set('JUMPTABSECT', '')
 
 subdir('generic')
 
-arch = get_option('host-arch')
+arch = get_option('host_arch')
 
 if arch != 'generic'
     top_level_arch_dir = host_machine.cpu_family()

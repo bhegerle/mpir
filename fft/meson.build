@@ -1,4 +1,4 @@
-if get_option('enable-fft')
+if get_option('enable_fft')
     fft_src = [
         'fft/adjust.c',
         'fft/adjust_sqrt2.c',
