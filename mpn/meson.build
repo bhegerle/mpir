@@ -79,7 +79,7 @@ if asm_src.length() != 0
         error('M4 is required for this host-arch')
     endif
 
-    m4_args = ['@INPUT@', '-o@OUTPUT@', '-I', 'mpn']
+    m4_args = ['@INPUT@', '-o@OUTPUT@', '-I', '@BUILD_DIR@/..', '-I', '@BUILD_DIR@/../mpn']
     if pic_asm
        m4_args += ['-DPIC']
     endif
@@ -98,7 +98,7 @@ if yasm_src.length() > 0
         error('YASM is required for this host-arch')
     endif
 
-    yasm_args = ['-f', yasm_format, '-I', '.', '@INPUT@', '-o', '@OUTPUT@']
+    yasm_args = ['-f', yasm_format, '-I', '@BUILD_DIR@/..', '@INPUT@', '-o', '@OUTPUT@']
     if pic_asm
        yasm_args += ['-D', 'PIC']
     endif
