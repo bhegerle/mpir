@@ -1,4 +1,4 @@
-option('with-yasm', type : 'string', 
+option('with_yasm', type : 'string', 
     description : 'use a custom Yasm')
 
 option('enable_assert', type : 'boolean', value : false, 
