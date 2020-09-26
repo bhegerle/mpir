@@ -221,8 +221,10 @@ else
     libs = [mpir_lib, mpirxx_lib]
 endif
 
-test_inc = include_directories('.', 'tests')
-subdir('tests')
+if not meson.is_subproject()
+    test_inc = include_directories('.', 'tests')
+    subdir('tests')
+endif
 
 libmpir_dep = declare_dependency(
     link_with : libs,

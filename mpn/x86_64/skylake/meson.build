@@ -1,6 +1,6 @@
-message('    enabling native: skylake'(
+message('    enabling native: skylake')
     
-    mpn_hdr_map += {
+mpn_hdr_map += {
     'gmp-mparam.h': 'mpn/x86_64/skylake/gmp-mparam.h.in',
 }
 
