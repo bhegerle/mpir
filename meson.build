@@ -161,7 +161,8 @@ conf_data.set('SIZEOF_UNSIGNED_SHORT', c.sizeof('unsigned short'))
 
 # select sources
 configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_data)
-configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data)
+configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data, install_dir : '.')
+configure_file(input : 'mpirxx.h', output : 'mpirxx.h', copy : true, install_dir : '.')
 
 foreach out_hdr, in_hdr : mpn_hdr_map
     message(in_hdr + ' -> ' + out_hdr)
@@ -220,6 +221,11 @@ else
     libs = [mpir_lib, mpirxx_lib]
 endif
 
-# Setup tests.
-test_inc = include_directories('.', 'tests')
-subdir('tests')
+if get_option('tests')
+    test_inc = include_directories('.', 'tests')
+    subdir('tests')
+endif
+
+libmpir_dep = declare_dependency(
+    link_with : libs,
+    include_directories : '.')
