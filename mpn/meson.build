@@ -58,10 +58,6 @@ endforeach
 if asm_src.length() != 0
     pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
 
-    if not yasm.found()
-        error('YASM is required for this host-arch')
-    endif
-
     # required m4...
     asm_defs = []
     if pic_asm
@@ -78,7 +74,7 @@ if asm_src.length() != 0
             '--depfile', '@DEPFILE@',
             '--cc', c.cmd_array()[0],
             '--m4', m4.found() ? m4.full_path() : 'm4_not_found',
-            '--yasm', yasm.full_path(),
+            '--yasm', yasm.found() ? yasm.full_path() : 'yasm_not_found',
             '--objfmt', yasm_format,
             '--incdirs', '@BUILD_DIR@' / '..', '@BUILD_DIR@' / '..' / 'mpn',
             '--defs'
