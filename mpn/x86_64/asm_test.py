@@ -1,6 +1,7 @@
 import sys
 import subprocess
 import re
+from os import listdir, remove
 
 
 cc = sys.argv[1:-1]
@@ -52,24 +53,29 @@ def fail():
     raise Exception()
 
 
-parse_asm('TEXT', r'^\s+(\.text\b|\.section\s+__TEXT.*)', lambda m: m[1])
-parse_asm('DATA', r'^\s+(\.data\b|\.section\s+__DATA.*)', lambda m: m[1])
-parse_asm('LABEL_SUFFIX', r'^_?C(:)?', lambda m: m[1])
-parse_asm('GLOBL', r'^\s+(\.globl)\s+_?I\b', lambda m: m[1]) 
-parse_asm('GSYM_PREFIX', r'^(_?)C:?', lambda m: m[1])
-parse_asm('RODATA', r'^\s+(\.section)\s.*(\.rodata|__TEXT,__const)', lambda m: m[1] + ' ' + m[2])
-parse_asm('TYPE', r'^\s+(\.type)\s+_?I\s*,\s*@\w+', lambda m: m[1] + ' $1,@$2' if m else '')
-parse_asm('SIZE', r'^\s+(\.size)\s+_?I\s*,\s*\d+', lambda m: m[1] + ' $1,$2' if m else '')
-parse_asm('LSYM_PREFIX', r'^\.?L', lambda m: m[0])
-execute('ALIGN_LOGARITHMIC', r'''
-        #include <stdint.h>
-        #include <stdio.h>
-        int main() {
-            int64_t x, y;
-            asm(".align 4\nx:\n\t" "jmp y\n\t"
-                ".align 4\ny:\n\t" "leaq x(%%rip), %0\n\t" "leaq y(%%rip), %1"
-                : "=r"(x), "=r"(y) : : );
-            printf("%ld", y - x);
-            return 0;
-        }''',
-        r'\d+', lambda m: 'no' if m[0] == '4' else 'yes' if m[0] == '16' else fail())
+try:
+    parse_asm('TEXT', r'^\s+(\.text\b|\.section\s+__TEXT.*)', lambda m: m[1])
+    parse_asm('DATA', r'^\s+(\.data\b|\.section\s+__DATA.*)', lambda m: m[1])
+    parse_asm('LABEL_SUFFIX', r'^_?C(:)?', lambda m: m[1])
+    parse_asm('GLOBL', r'^\s+(\.globl)\s+_?I\b', lambda m: m[1]) 
+    parse_asm('GSYM_PREFIX', r'^(_?)C:?', lambda m: m[1])
+    parse_asm('RODATA', r'^\s+(\.section)\s.*(\.rodata|__TEXT,__const)', lambda m: m[1] + ' ' + m[2])
+    parse_asm('TYPE', r'^\s+(\.type)\s+_?I\s*,\s*@\w+', lambda m: m[1] + ' $1,@$2' if m else '')
+    parse_asm('SIZE', r'^\s+(\.size)\s+_?I\s*,\s*\d+', lambda m: m[1] + ' $1,$2' if m else '')
+    parse_asm('LSYM_PREFIX', r'^\.?L', lambda m: m[0])
+    execute('ALIGN_LOGARITHMIC', r'''
+            #include <stdint.h>
+            #include <stdio.h>
+            int main() {
+                int64_t x, y;
+                asm(".align 4\nx:\n\t" "jmp y\n\t"
+                    ".align 4\ny:\n\t" "leaq x(%%rip), %0\n\t" "leaq y(%%rip), %1"
+                    : "=r"(x), "=r"(y) : : );
+                printf("%ld", y - x);
+                return 0;
+            }''',
+            r'\d+', lambda m: 'no' if m[0] == '4' else 'yes' if m[0] == '16' else fail())
+finally:
+    for d in listdir():
+        if d.startswith('.test'):
+            remove(d)

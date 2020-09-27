@@ -17,9 +17,7 @@
 ; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ; 02110-1301, USA.
 
-%ifidn @GSYM_PREFIX@,_
-%define GSYM_PREFIX
-%endif
+%define GSYM@GSYM_PREFIX@PREFIX
 
 %macro G_LABEL 1
 %ifdef GSYM_PREFIX
