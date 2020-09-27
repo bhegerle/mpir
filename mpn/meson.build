@@ -35,7 +35,6 @@ endif
 # but the sources could be duplicated, so split mpn_src_map into yasm 
 # and m4/asm maps which will naturally de-duplicate the sources.
 mpnc_src_map = {}
-yasm_src_map = {}
 asm_src_map = {}
 native_functions = []
 foreach f, src : mpn_src_map
@@ -43,18 +42,7 @@ foreach f, src : mpn_src_map
         mpnc_src_map += { src: src }
     else
         mpn_conf_data.set('HAVE_NATIVE_mpn_' + f, 1)
-        
-        if src.endswith('.asm')
-            if use_yasm_for_asm_files
-                yasm_src_map += { src: src }
-            else 
-                asm_src_map += { src: src }
-            endif
-        elif src.endswith('.as')
-            yasm_src_map += { src: src }
-        else
-            warning('unexpected extension ' + src)
-        endif
+        asm_src_map += { src: src }
     endif
 endforeach
 
@@ -67,45 +55,33 @@ foreach s, _ : asm_src_map
     asm_src += [s]
 endforeach
 
-yasm_src = []
-foreach s, _ : yasm_src_map
-    yasm_src += [s]
-endforeach
-
 if asm_src.length() != 0
-    pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
-
-    if not m4.found()
-        error('M4 is required for this host-arch')
-    endif
-
-    m4_args = ['@INPUT@', '-o@OUTPUT@', '-I', '@BUILD_DIR@/..', '-I', '@BUILD_DIR@/../mpn']
-    if pic_asm
-       m4_args += ['-DPIC']
-    endif
-
-    message('configuring m4/assembler')
-    asm_pregen = generator(m4,
-        output : '@BASENAME@.s',
-        arguments : m4_args,
-        capture : true)
-endif
-
-if yasm_src.length() > 0
     pic_asm = get_option('b_staticpic') or get_option('default_library') != 'static'
 
     if not yasm.found()
         error('YASM is required for this host-arch')
     endif
 
-    yasm_args = ['-f', yasm_format, '-I', '@BUILD_DIR@/..', '@INPUT@', '-o', '@OUTPUT@']
+    # required m4...
+    asm_defs = []
     if pic_asm
-       yasm_args += ['-D', 'PIC']
+       asm_defs = ['PIC']
     endif
 
-    message('configuring yasm to output ' + yasm_obj_ext + ' files in ' + yasm_format + ' format')
-    yasm_gen = generator(yasm,
+    asm_gen = generator(python,
         output : '@BASENAME@' + yasm_obj_ext,
-        arguments : yasm_args)
+        depfile : '@BASENAME@.d',
+        arguments : [
+            '@CURRENT_SOURCE_DIR@' / 'mpn' / 'asm.py',
+            '--input', '@INPUT@',
+            '--output', '@OUTPUT@',
+            '--depfile', '@DEPFILE@',
+            '--cc', c.cmd_array()[0],
+            '--m4', m4.found() ? m4.full_path() : 'm4_not_found',
+            '--yasm', yasm.full_path(),
+            '--objfmt', yasm_format,
+            '--incdirs', '@BUILD_DIR@' / '..', '@BUILD_DIR@' / '..' / 'mpn',
+            '--defs'
+        ] + asm_defs)
 endif
 

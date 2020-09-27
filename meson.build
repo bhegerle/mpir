@@ -193,11 +193,7 @@ endif
 
 # Build the libraries.
 if asm_src.length() > 0
-    mpir_src += [asm_pregen.process(asm_src)]
-endif
-
-if yasm_src.length() > 0
-    mpir_src += [yasm_gen.process(yasm_src)]
+    mpir_src += [asm_gen.process(asm_src)]
 endif
 
 c_args = ['-D__GMP_WITHIN_GMP=1', '-D__GMP_WITHIN_GMPXX=1']

@@ -4,9 +4,9 @@ import re
 import os
 
 if 'MESON_BUILD_ROOT' in os.environ:
-    test = os.path.join(os.environ['MESON_BUILD_ROOT'], '.test')
+    asm_test = os.path.join(os.environ['MESON_BUILD_ROOT'], '.asm_test')
 else:
-    test = os.path.abspath('.test')
+    asm_test = os.path.abspath('.asm_test')
 
 
 cc = sys.argv[1:-1]
@@ -26,13 +26,13 @@ def test(mode_filter, gen, pattern, match_func):
 
 def execute(mode_filter, src, pattern, match_func):
     def gen():
-        with open(test + '.c', 'w') as c:
+        with open(asm_test + '.c', 'w') as c:
             c.write(src)
 
-        cmd = cc + ['-o', test, test + '.c']
+        cmd = cc + ['-o', asm_test, asm_test + '.c']
         subprocess.run(cmd, check=True)
 
-        run = subprocess.run(test, check=True, capture_output=True, text=True)
+        run = subprocess.run(asm_test, check=True, capture_output=True, text=True)
         return run.stdout
 
     test(mode_filter, gen, pattern, match_func)
@@ -40,13 +40,13 @@ def execute(mode_filter, src, pattern, match_func):
         
 def parse_asm(mode_filter, pattern, match_func):
     def gen():
-        with open(test + '.c', 'w') as c:
+        with open(asm_test + '.c', 'w') as c:
             c.write('const int C=123; int I=1; const char *s="hi";')
 
-        cmd = cc + ['-S', test + '.c']
+        cmd = cc + ['-S', asm_test + '.c']
         subprocess.run(cmd, check=True)
 
-        with open(test + '.s', 'r') as s:
+        with open(asm_test + '.s', 'r') as s:
             asm = s.read()
 
         return asm

@@ -1,5 +1,3 @@
-use_yasm_for_asm_files = false
-
 mpn_conf_data.set('BITS_PER_MP_LIMB', 64)
 
 asm_test_ok = true

@@ -33,4 +33,3 @@ include(`x86_64-defs.m4')
 @JUMPTABSECT@
 ')
 define(`__CONFIG_M4_INCLUDED__')
-

@@ -1,5 +1,3 @@
-use_yasm_for_asm_files = true
-    
 yasm_format += '64'
 yasm_obj_ext = '.obj'
 
