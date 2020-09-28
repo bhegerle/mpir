@@ -1,15 +1,8 @@
 mpn_conf_data.set('HAVE_CALLING_CONVENTIONS', 1)
 
-if host_machine.endian() == 'big'
-    endian_vars = ['HAVE_DOUBLE_IEEE_BIG_ENDIAN', 'HAVE_LIMB_BIG_ENDIAN']
-else
-    endian_vars = ['HAVE_DOUBLE_IEEE_LITTLE_ENDIAN', 'HAVE_LIMB_LITTLE_ENDIAN']
-endif
-
-foreach v : endian_vars
-    mpn_conf_data.set(v, 1)
-endforeach
-
+endianness = host_machine.endian().upper()
+mpn_conf_data.set('HAVE_DOUBLE_IEEE_' + endianness + '_ENDIAN', 1)
+mpn_conf_data.set('HAVE_LIMB_' + endianness + '_ENDIAN', 1)
 
 mpn_hdr_map = {
     'gmp-mparam.h': 'mpn/generic/gmp-mparam.h.in',
@@ -21,7 +14,7 @@ mpn_hdr_map = {
 mpn_src = [
     'mpn/generic/mp_bases.c',
     'mpn/generic/comb_tables.c',
-    'mpn/generic/fib_table.c',
+    'mpn/generic/fib_table.c'
 ]
 
 mpn_src_map = {
