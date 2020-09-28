@@ -10,10 +10,14 @@ windows = host_machine.system() == 'windows'
 assert(not (windows and get_option('default_library') == 'both'),
     'windows build must be static or shared, but not both')
 
+c_args = []
+
 if windows 
     yasm = find_program([get_option('with_yasm'), 'vsyasm.exe'], 
         dirs : ['C:\\Program Files\\yasm\\'], 
         required : false)
+
+    c_args += ['/DYNAMICBASE:NO']
 else
     yasm = find_program(
         [get_option('with_yasm'), 'yasm'], 
@@ -196,7 +200,7 @@ if asm_src.length() > 0
     mpir_src += [asm_gen.process(asm_src)]
 endif
 
-c_args = ['-D__GMP_WITHIN_GMP=1', '-D__GMP_WITHIN_GMPXX=1']
+c_args += ['-D__GMP_WITHIN_GMP=1', '-D__GMP_WITHIN_GMPXX=1']
 if windows and get_option('default_library') == 'shared'
     mpir_lib = library('mpir', 
         mpir_src + mpirxx_src, 
