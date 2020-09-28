@@ -1,6 +1,6 @@
 mpn_conf_data.set('HAVE_CALLING_CONVENTIONS', 1)
 
-endianness = host_machine.endian().upper()
+endianness = host_machine.endian().to_upper()
 mpn_conf_data.set('HAVE_DOUBLE_IEEE_' + endianness + '_ENDIAN', 1)
 mpn_conf_data.set('HAVE_LIMB_' + endianness + '_ENDIAN', 1)
 

@@ -154,9 +154,13 @@ conf_data.set10('WANT_FFT', get_option('enable_fft'))
 conf_data.set10('WANT_PROFILING', false)
 
 conf_data.set_quoted('VERSION', meson.project_version())
-conf_data.set('BITS_PER_MP_LIMB', '(8 * SIZEOF_MP_LIMB_T)') # this is not a great solution,
-                                                            # because it doesn't work in the m4 include
+conf_data.set('BITS_PER_MP_LIMB', bits)
+if bits == 64
+    conf_data.set('_LONG_LONG_LIMB', 1)
+endif
 conf_data.set('GMP_NAIL_BITS', 0)
+
+conf_data.set('SIZEOF_MP_LIMB_T', bits / 8)
 conf_data.set('SIZEOF_UINTMAX_T', c.sizeof('uintmax_t', prefix : '#include <stdint.h>'))
 conf_data.set('SIZEOF_UNSIGNED', c.sizeof('unsigned'))
 conf_data.set('SIZEOF_UNSIGNED_LONG', c.sizeof('unsigned long'))

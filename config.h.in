@@ -421,6 +421,9 @@ MA 02110-1301, USA.
 /* Define to the version of this package. */
 #mesondefine PACKAGE_VERSION
 
+/* The size of `mp_limb_t' */
+#mesondefine SIZEOF_MP_LIMB_T
+
 /* The size of `uintmax_t', as computed by sizeof. */
 #mesondefine SIZEOF_UINTMAX_T
 

@@ -1,3 +1,5 @@
+assert(bits == 64)
+
 yasm_format += '64'
 yasm_obj_ext = '.obj'
 

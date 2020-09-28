@@ -1,4 +1,4 @@
-mpn_conf_data.set('BITS_PER_MP_LIMB', 64)
+assert(bits == 64)
 
 asm_test_ok = true
 foreach k : ['TEXT', 'DATA', 'LABEL_SUFFIX', 'GLOBL', 
@@ -17,6 +17,7 @@ foreach k : ['TEXT', 'DATA', 'LABEL_SUFFIX', 'GLOBL',
 endforeach
 
 if asm_test_ok
+    bits = '64'
     yasm_format += '64'
     yasm_obj_ext = '.o'
 

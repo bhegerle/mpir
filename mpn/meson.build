@@ -6,10 +6,19 @@ mpn_conf_data.set10('WANT_ASSERT', get_option('enable_assert'))
 mpn_conf_data.set('ALIGN_FILL', 'yes')
 mpn_conf_data.set('JUMPTABSECT', '')
 
+sizeof_size_t = c.sizeof('size_t')
+if sizeof_size_t == 4
+    bits = 32
+elif sizeof_size_t == 8
+    bits = 64
+else   
+    warning('could not determine host machine bitness -- defaulting to 32')
+    bits = 32
+endif
+
 subdir('generic')
 
 arch = get_option('host_arch')
-
 if arch != 'generic'
     top_level_arch_dir = host_machine.cpu_family()
 
