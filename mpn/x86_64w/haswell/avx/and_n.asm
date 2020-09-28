@@ -62,10 +62,8 @@
 %define Src1P   RDX
 %define Src2P    R8
 %define Size     R9
-%define SizeB   R9B
 %define SizeD   R9D
 %define Count   RAX
-%define CountB   AL
 %define CountD  EAX
 %define Limb0   R10
 %define Limb0D R10D
