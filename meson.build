@@ -18,9 +18,9 @@ else
     yasm = find_program(
         [get_option('with_yasm'), 'yasm'], 
         required : false)
-
-    m4 = find_program('m4', required : false)
 endif
+
+m4 = find_program('m4', required : false)
 
 subdir('mpn')
 subdir('fft')
