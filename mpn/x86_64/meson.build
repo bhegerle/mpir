@@ -17,7 +17,7 @@ foreach k : ['TEXT', 'DATA', 'LABEL_SUFFIX', 'GLOBL',
 endforeach
 
 if asm_test_ok
-    bits = '64'
+    bits = 64
     yasm_format += '64'
     yasm_obj_ext = '.o'
 
