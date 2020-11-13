@@ -26,6 +26,11 @@ endif
 
 m4 = find_program('m4', required : false)
 
+mpn_hdr_map = {
+    'yasm_mac.inc': files('yasm_mac.inc.in'),
+    'config.m4': files('config.m4.in')
+}
+
 subdir('mpn')
 subdir('fft')
 subdir('mpz')
@@ -172,8 +177,9 @@ configure_file(input : 'config.h.in', output : 'config.h', configuration : conf_
 configure_file(input : 'mpir.h.in', output : 'mpir.h', configuration : conf_data, install_dir : '.')
 configure_file(input : 'mpirxx.h', output : 'mpirxx.h', copy : true, install_dir : '.')
 
+# message(mpn_src)
+
 foreach out_hdr, in_hdr : mpn_hdr_map
-    message(in_hdr + ' -> ' + out_hdr)
     configure_file(input : in_hdr, output : out_hdr, configuration : mpn_conf_data)
 endforeach
 

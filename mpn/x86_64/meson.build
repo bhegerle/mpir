@@ -22,30 +22,27 @@ if asm_test_ok
     yasm_obj_ext = '.o'
 
     mpn_hdr_map += {
-        'longlong_inc.h': 'mpn/x86_64/longlong_inc.h.in',
-        'gmp-mparam.h': 'mpn/x86_64/gmp-mparam.h.in',
-        'yasm_mac.inc': 'yasm_mac.inc.in',
-        'config.m4': 'config.m4.in',
-        'asm-defs.m4': 'mpn/asm-defs.m4',
-        'x86_64-defs.m4': 'mpn/x86_64/x86_64-defs.m4'
+        'longlong_inc.h': files('longlong_inc.h.in'),
+        'gmp-mparam.h': files('gmp-mparam.h.in'),
+        'x86_64-defs.m4': files('x86_64-defs.m4')
     }
 
     mpn_src_map += {
-        'add_err1_n': 'mpn/x86_64/add_err1_n.asm',
-        'add_err2_n': 'mpn/x86_64/add_err2_n.asm',
-        'divexact_by3c': 'mpn/x86_64/divexact_by3c.as',
-        'divexact_byfobm1': 'mpn/x86_64/divexact_byfobm1.as',
-        'divrem_2': 'mpn/x86_64/divrem_2.as',
-        'divrem_euclidean_qr_1': 'mpn/x86_64/divrem_euclidean_qr_1.as',
-        'preinv_divrem_1': 'mpn/x86_64/divrem_euclidean_qr_1.as',
-        'divrem_euclidean_qr_2': 'mpn/x86_64/divrem_euclidean_qr_2.as',
-        'modexact_1_odd': 'mpn/x86_64/modexact_1c_odd.as',
-        'modexact_1c_odd': 'mpn/x86_64/modexact_1c_odd.as',
-        'mullow_n_basecase': 'mpn/x86_64/mullow_n_basecase.asm',
-        'mulmid_basecase': 'mpn/x86_64/mulmid_basecase.asm',
-        'sqr_basecase': 'mpn/x86_64/sqr_basecase.asm',
-        'sub_err1_n': 'mpn/x86_64/sub_err1_n.asm',
-        'sub_err2_n': 'mpn/x86_64/sub_err2_n.asm',
+        'add_err1_n': file('add_err1_n.asm'),
+        'add_err2_n': file('add_err2_n.asm'),
+        'divexact_by3c': file('divexact_by3c.as'),
+        'divexact_byfobm1': file('divexact_byfobm1.as'),
+        'divrem_2': file('divrem_2.as'),
+        'divrem_euclidean_qr_1': file('divrem_euclidean_qr_1.as'),
+        'preinv_divrem_1': file('divrem_euclidean_qr_1.as'),
+        'divrem_euclidean_qr_2': file('divrem_euclidean_qr_2.as'),
+        'modexact_1_odd': file('modexact_1c_odd.as'),
+        'modexact_1c_odd': file('modexact_1c_odd.as'),
+        'mullow_n_basecase': file('mullow_n_basecase.asm'),
+        'mulmid_basecase': file('mulmid_basecase.asm'),
+        'sqr_basecase': file('sqr_basecase.asm'),
+        'sub_err1_n': file('sub_err1_n.asm'),
+        'sub_err2_n': file('sub_err2_n.asm')
     }
 
     if arch == 'auto'
