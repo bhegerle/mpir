@@ -28,21 +28,21 @@ if asm_test_ok
     }
 
     mpn_src_map += {
-        'add_err1_n': file('add_err1_n.asm'),
-        'add_err2_n': file('add_err2_n.asm'),
-        'divexact_by3c': file('divexact_by3c.as'),
-        'divexact_byfobm1': file('divexact_byfobm1.as'),
-        'divrem_2': file('divrem_2.as'),
-        'divrem_euclidean_qr_1': file('divrem_euclidean_qr_1.as'),
-        'preinv_divrem_1': file('divrem_euclidean_qr_1.as'),
-        'divrem_euclidean_qr_2': file('divrem_euclidean_qr_2.as'),
-        'modexact_1_odd': file('modexact_1c_odd.as'),
-        'modexact_1c_odd': file('modexact_1c_odd.as'),
-        'mullow_n_basecase': file('mullow_n_basecase.asm'),
-        'mulmid_basecase': file('mulmid_basecase.asm'),
-        'sqr_basecase': file('sqr_basecase.asm'),
-        'sub_err1_n': file('sub_err1_n.asm'),
-        'sub_err2_n': file('sub_err2_n.asm')
+        'add_err1_n': files('add_err1_n.asm'),
+        'add_err2_n': files('add_err2_n.asm'),
+        'divexact_by3c': files('divexact_by3c.as'),
+        'divexact_byfobm1': files('divexact_byfobm1.as'),
+        'divrem_2': files('divrem_2.as'),
+        'divrem_euclidean_qr_1': files('divrem_euclidean_qr_1.as'),
+        'preinv_divrem_1': files('divrem_euclidean_qr_1.as'),
+        'divrem_euclidean_qr_2': files('divrem_euclidean_qr_2.as'),
+        'modexact_1_odd': files('modexact_1c_odd.as'),
+        'modexact_1c_odd': files('modexact_1c_odd.as'),
+        'mullow_n_basecase': files('mullow_n_basecase.asm'),
+        'mulmid_basecase': files('mulmid_basecase.asm'),
+        'sqr_basecase': files('sqr_basecase.asm'),
+        'sub_err1_n': files('sub_err1_n.asm'),
+        'sub_err2_n': files('sub_err2_n.asm')
     }
 
     if arch == 'auto'
