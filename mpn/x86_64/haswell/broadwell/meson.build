@@ -1,5 +1,5 @@
 message('    enabling native: broadwell')
 
 mpn_hdr_map += {
-    'gmp-mparam.h': 'mpn/x86_64/haswell/broadwell/gmp-mparam.h.in',
+    'gmp-mparam.h': files('gmp-mparam.h.in'),
 }
