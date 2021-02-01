@@ -55,20 +55,20 @@ foreach func, src_files : mpn_src_map
         src = '@0@'.format(sf)
 
         if src.endswith('.c')
-            mpnc_src_map += { src: src }
+            mpnc_src_map += { src: src_files }
         else
             mpn_conf_data.set('HAVE_NATIVE_mpn_' + func, 1)
-            asm_src_map += { src: src }
+            asm_src_map += { src: src_files }
         endif
     endforeach
 endforeach
 
-foreach s, _ : mpnc_src_map
+foreach _, s : mpnc_src_map
     mpn_src += [s]
 endforeach
 
 asm_src = []
-foreach s, _ : asm_src_map
+foreach _, s : asm_src_map
     asm_src += [s]
 endforeach
 
