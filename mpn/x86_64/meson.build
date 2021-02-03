@@ -70,7 +70,7 @@ if asm_test_ok
                     case 0x3a: case 0x3e: return "ivybridge";
                     case 0x3c: case 0x3f: case 0x45: case 0x46: return "haswell";
                     case 0x3d: case 0x47: case 0x4f: case 0x56: return "broadwell";
-                    default: if(model > 0x4e) return "skylake";
+                    default: if(model >= 0x4e) return "skylake";
                     }
                 }
                 fprintf(stderr, "could not id processor with family 0x%x / model 0x%x\n", family, model);
