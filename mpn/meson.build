@@ -16,9 +16,18 @@ else
     bits = 32
 endif
 
+mpn_hdr_map += {
+    'asm-defs.m4': files('asm-defs.m4')
+}
+
 subdir('generic')
 
 arch = get_option('host_arch')
+
+if host_machine.cpu_family() == 'aarch64' and arch == 'auto'
+    arch = 'generic'
+endif
+
 if arch != 'generic'
     top_level_arch_dir = host_machine.cpu_family()
 
@@ -46,21 +55,25 @@ endif
 mpnc_src_map = {}
 asm_src_map = {}
 native_functions = []
-foreach f, src : mpn_src_map
-    if src.endswith('.c')
-        mpnc_src_map += { src: src }
-    else
-        mpn_conf_data.set('HAVE_NATIVE_mpn_' + f, 1)
-        asm_src_map += { src: src }
-    endif
+foreach func, src_files : mpn_src_map
+    foreach sf : src_files
+        src = '@0@'.format(sf)
+
+        if src.endswith('.c')
+            mpnc_src_map += { src: src_files }
+        else
+            mpn_conf_data.set('HAVE_NATIVE_mpn_' + func, 1)
+            asm_src_map += { src: src_files }
+        endif
+    endforeach
 endforeach
 
-foreach s, _ : mpnc_src_map
+foreach _, s : mpnc_src_map
     mpn_src += [s]
 endforeach
 
 asm_src = []
-foreach s, _ : asm_src_map
+foreach _, s : asm_src_map
     asm_src += [s]
 endforeach
 

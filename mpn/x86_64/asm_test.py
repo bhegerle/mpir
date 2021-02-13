@@ -9,6 +9,8 @@ else:
     asm_test = os.path.abspath('.asm_test')
 
 
+print(f'base: {asm_test}', file=sys.stderr)
+
 cc = sys.argv[1:-1]
 mode = sys.argv[-1]
 
@@ -43,7 +45,7 @@ def parse_asm(mode_filter, pattern, match_func):
         with open(asm_test + '.c', 'w') as c:
             c.write('const int C=123; int I=1; const char *s="hi";')
 
-        cmd = cc + ['-S', asm_test + '.c']
+        cmd = cc + ['-S', asm_test + '.c', '-o', asm_test + '.s']
         subprocess.run(cmd, check=True)
 
         with open(asm_test + '.s', 'r') as s:

@@ -1,15 +1,19 @@
-option('with_yasm', type : 'string', 
+option('with_yasm', type : 'string', yield : true,
     description : 'use a custom Yasm')
 
-option('enable_assert', type : 'boolean', value : false, 
+option('enable_assert', type : 'boolean', value : false,
     description : 'enable ASSERT checking')
 
 option('allocator', type : 'combo', 
     choices : ['alloca', 'malloc-reentrant', 'malloc-notreentrant', 'debug'], 
-    value : 'malloc-reentrant', 
+    value : 'malloc-reentrant',  
+    yield : true,
     description : 'allocator to use')
 
-option('enable_fft', type : 'boolean', value : true, 
+option('enable_fft', 
+    type : 'boolean', 
+    value : true, 
+    yield : true,
     description : 'enable FFTs for multiplication')
 
 option('host_arch', type : 'combo', 
@@ -18,7 +22,8 @@ option('host_arch', type : 'combo',
         'x86_64', 'netburst', 'k8', 'k10', 'k102', 'bulldozer', 'piledriver', 'bobcat', 
         'core2', 'penryn', 'nehalem', 'westmere', 'sandybridge', 'ivybridge', 'haswell', 'haswellavx', 'skylake', 'skylakeavx', 'broadwell', 
         'atom', 'nano'
-    ], 
-    value : 'auto')
+    ],
+    value : 'auto', 
+    yield : true)
     
 option('tests', type : 'boolean', value : false)

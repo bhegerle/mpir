@@ -1,15 +1,15 @@
 message('    enabling native: bulldozer')
 
 mpn_hdr_map += {
-    'gmp-mparam.h': 'mpn/x86_64/bulldozer/gmp-mparam.h.in',
+    'gmp-mparam.h': files('gmp-mparam.h.in'),
 }
 
 mpn_src_map += {
-    'com_n': 'mpn/x86_64/bulldozer/com_n.asm',
-    'copyd': 'mpn/x86_64/bulldozer/copyd.asm',
-    'copyi': 'mpn/x86_64/bulldozer/copyi.asm',
-    'lshift': 'mpn/x86_64/bulldozer/lshift.asm',
-    'mul_basecase': 'mpn/x86_64/bulldozer/mul_basecase.asm',
-    'rshift': 'mpn/x86_64/bulldozer/rshift.asm',
+    'com_n': files('com_n.asm'),
+    'copyd': files('copyd.asm'),
+    'copyi': files('copyi.asm'),
+    'lshift': files('lshift.asm'),
+    'mul_basecase': files('mul_basecase.asm'),
+    'rshift': files('rshift.asm'),
 }
 
