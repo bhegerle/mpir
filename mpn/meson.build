@@ -23,6 +23,11 @@ mpn_hdr_map += {
 subdir('generic')
 
 arch = get_option('host_arch')
+
+if host_machine.cpu_family() == 'aarch64' and arch == 'auto'
+    arch = 'generic'
+endif
+
 if arch != 'generic'
     top_level_arch_dir = host_machine.cpu_family()
 
